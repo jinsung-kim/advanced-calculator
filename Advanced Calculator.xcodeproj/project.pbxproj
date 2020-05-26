@@ -7,7 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A15A2249247C3EEB005ACA41 /* Polynomial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A15A2247247C3EEB005ACA41 /* Polynomial.cpp */; };
+		A15A224F247C7B59005ACA41 /* Indeterminant.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A15A224D247C7B59005ACA41 /* Indeterminant.cpp */; };
 		A15CE2CF247C13C700859338 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A15CE2CE247C13C700859338 /* main.cpp */; };
+		A15CE2D8247C2BE300859338 /* Rational.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A15CE2D6247C2BE300859338 /* Rational.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -23,8 +26,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		A15A2247247C3EEB005ACA41 /* Polynomial.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Polynomial.cpp; sourceTree = "<group>"; };
+		A15A2248247C3EEB005ACA41 /* Polynomial.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Polynomial.hpp; sourceTree = "<group>"; };
+		A15A224D247C7B59005ACA41 /* Indeterminant.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Indeterminant.cpp; sourceTree = "<group>"; };
+		A15A224E247C7B59005ACA41 /* Indeterminant.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Indeterminant.hpp; sourceTree = "<group>"; };
 		A15CE2CB247C13C700859338 /* Advanced Calculator */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Advanced Calculator"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A15CE2CE247C13C700859338 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		A15CE2D6247C2BE300859338 /* Rational.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Rational.cpp; sourceTree = "<group>"; };
+		A15CE2D7247C2BE300859338 /* Rational.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Rational.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,9 +66,23 @@
 		A15CE2CD247C13C700859338 /* Advanced Calculator */ = {
 			isa = PBXGroup;
 			children = (
+				A15CE2D5247C2BBF00859338 /* Functions */,
 				A15CE2CE247C13C700859338 /* main.cpp */,
 			);
 			path = "Advanced Calculator";
+			sourceTree = "<group>";
+		};
+		A15CE2D5247C2BBF00859338 /* Functions */ = {
+			isa = PBXGroup;
+			children = (
+				A15CE2D6247C2BE300859338 /* Rational.cpp */,
+				A15CE2D7247C2BE300859338 /* Rational.hpp */,
+				A15A2247247C3EEB005ACA41 /* Polynomial.cpp */,
+				A15A2248247C3EEB005ACA41 /* Polynomial.hpp */,
+				A15A224D247C7B59005ACA41 /* Indeterminant.cpp */,
+				A15A224E247C7B59005ACA41 /* Indeterminant.hpp */,
+			);
+			path = Functions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -119,7 +142,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A15A224F247C7B59005ACA41 /* Indeterminant.cpp in Sources */,
 				A15CE2CF247C13C700859338 /* main.cpp in Sources */,
+				A15CE2D8247C2BE300859338 /* Rational.cpp in Sources */,
+				A15A2249247C3EEB005ACA41 /* Polynomial.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
