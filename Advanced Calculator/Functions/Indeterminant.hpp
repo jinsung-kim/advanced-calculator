@@ -21,10 +21,15 @@ namespace IndeterminantC
 
 class Indeterminant
 {
+    friend std::ostream& operator << (std::ostream& os, const Indeterminant& rhs);
 public:
     Indeterminant();
     Indeterminant(int, int);
     Indeterminant(const RationalC::Rational&, const RationalC::Rational&);
+    Indeterminant(const Indeterminant&);
+    
+    // Assignment Operator
+    Indeterminant& operator = (const Indeterminant& rhs);
     
     // Getters
     RationalC::Rational getDegree() const;

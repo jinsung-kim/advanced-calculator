@@ -25,11 +25,14 @@ class Rational
     friend Rational operator - (const Rational& lhs, const Rational& rhs);
     friend Rational operator * (const Rational& lhs, const Rational& rhs);
     friend Rational operator / (const Rational& lhs, const Rational& rhs);
+    friend bool operator < (const Rational& lhs, const Rational& rhs);
     friend bool operator < (const Rational& lhs, int constant);
+    friend bool operator > (const Rational& lhs, const Rational& rhs);
     friend bool operator > (const Rational& lhs, int constant);
 public:
     // Constructors
     Rational();
+    Rational(int);
     Rational(int, int);
     
     // Copy Control
@@ -50,6 +53,7 @@ public:
     Rational operator -- (int);
     
     bool getNegative() const;
+    void setNegative(bool);
     
     // Reduces the fraction to its simplest form
     Rational reduce() const;

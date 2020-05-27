@@ -38,6 +38,9 @@ public:
 
     // Takes in a VALID string input and reforms it into a valid Polynomial object
     Polynomial(std::string);
+    
+    // Takes in Rational vectors to represent coefficients and degrees
+    Polynomial(const std::vector<RationalC::Rational>&, const std::vector<RationalC::Rational>&);
 
     // Copy Constructor
     Polynomial(const Polynomial& rhs);
