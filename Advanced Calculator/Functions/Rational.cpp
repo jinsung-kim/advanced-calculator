@@ -87,7 +87,7 @@ Rational operator + (const Rational& lhs, const Rational& rhs)
     if (rhs.negative) rhsMult *= -1;
     result.num = (lhs.num * lhsMult) + (rhs.num * rhsMult);
     // Fix back if there are inconsistencies
-    if (result.num < 0) result.negative = true; result.num *= -1;
+    if (result.num < 0) result.negative = true;
     result.den = lcm;
     result.reduce();
     return result;
@@ -116,7 +116,10 @@ Rational operator * (const Rational& lhs, const Rational& rhs)
     Rational result;
     result.num = lhs.num * rhs.num;
     result.den = lhs.den * rhs.den;
-    result.negative = (lhs.negative && rhs.negative);
+    if (lhs.negative && rhs.negative) result.negative = false;
+    else if (lhs.negative) result.negative = true;
+    else if (rhs.negative) result.negative = true;
+    else result.negative = false;
     result.reduce();
     return result;
 }
@@ -127,7 +130,10 @@ Rational operator / (const Rational& lhs, const Rational& rhs)
     Rational result;
     result.num = lhs.num * rhs.den;
     result.den = lhs.den * rhs.num;
-    result.negative = (lhs.negative && rhs.negative);
+    if (lhs.negative && rhs.negative) result.negative = false;
+    else if (lhs.negative) result.negative = true;
+    else if (rhs.negative) result.negative = true;
+    else result.negative = false;
     result.reduce();
     return result;
 }
@@ -253,9 +259,15 @@ Rational Rational::operator -- (int dummy)
     return result;
 }
 
+// Getters
 bool Rational::getNegative() const { return this->negative; }
+int Rational::getNum() const { return this->num; }
+int Rational::getDen() const { return this->den; }
 
+// Setters
 void Rational::setNegative(bool negative) { this->negative = negative; }
+void Rational::setNum(int num) { this->num = num; }
+void Rational::setDen(int den) { this->den = den; }
 
 Rational Rational::reduce() const
 {
@@ -272,36 +284,29 @@ void Rational::reduce()
 }
 
 // Used for displaying polynomials
+// Does not consider negative signs
 std::string Rational::display() const
 {
-    if (den != 1) {
-        int gcd = GCD(num, den);
-        if ((den / gcd) == 1) // Denominator when simplified is 1
-        {
-            if (this->negative)
-            {
-                return "-" + std::to_string(num / gcd);
-            }
-            else
-            {
-                return std::to_string(num / gcd);
-            }
-        }
-        else // Denominator is not 1 when simplified
-        {
-            if (this->negative) return "-" + std::to_string(num / gcd) + "/" + std::to_string(den / gcd);
-            else return std::to_string(num / gcd) + "/" + std::to_string(den / gcd);
-        }
-    } else {
-        if (this->negative) return "-" + std::to_string(num);
-        else return std::to_string(num);
+    int n = abs(num);
+    int d = abs(den);
+    int gcd = GCD(n, d);
+    n /= gcd;
+    d /= gcd;
+    if (d == 1) // Number is not a fraction
+    {
+        return std::to_string(n);
+    }
+    else // Result will be a fraction
+    {
+        return std::to_string(n) + "/" + std::to_string(d);
     }
 }
 
 // Rational to Double
-double Rational::evaluate() const
+float Rational::evaluate() const
 {
-    double result = num / double(den);
+    float result = float(num) / float(den);
+    if (this->negative) result *= -1;
     return result;
 }
 

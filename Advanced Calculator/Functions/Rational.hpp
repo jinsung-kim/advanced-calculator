@@ -52,8 +52,15 @@ public:
     // Post decrement
     Rational operator -- (int);
     
+    // Getters
     bool getNegative() const;
+    int getNum() const;
+    int getDen() const;
+    
+    // Setters
     void setNegative(bool);
+    void setNum(int);
+    void setDen(int);
     
     // Reduces the fraction to its simplest form
     Rational reduce() const;
@@ -63,7 +70,7 @@ public:
     std::string display() const;
     
     // Rational to Double Convert (For Polynomial Evaluation)
-    double evaluate() const;
+    float evaluate() const;
 private:
     int num;
     int den;

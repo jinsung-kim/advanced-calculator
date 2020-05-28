@@ -10,17 +10,12 @@
 # include "Indeterminant.hpp"
 # include <iostream>
 # include <vector>
+# include <math.h>
 
 // Polynomial relies on Rational numbers to build its constructor
-namespace RationalC
-{
-    class Rational;
-}
+namespace RationalC { class Rational; }
 
-namespace IndeterminantC
-{
-    class Indeterminant;
-}
+namespace IndeterminantC { class Indeterminant; }
 
 namespace PolynomialC
 {
@@ -53,7 +48,7 @@ std::ostream& operator << (std::ostream& os, const Polynomial& rhs)
                     }
                     else
                     {
-                        output = output + rhs.expressions[i].getCoeff().display() + rhs.var;
+                        output = output + "-" + rhs.expressions[i].getCoeff().display() + rhs.var;
                     }
                 }
                 else
@@ -78,7 +73,7 @@ std::ostream& operator << (std::ostream& os, const Polynomial& rhs)
                     }
                     else
                     {
-                        output = output + rhs.expressions[i].getCoeff().display()
+                        output = output + "-" + rhs.expressions[i].getCoeff().display()
                         + rhs.var + "^" + rhs.expressions[i].getDegree().display();
                     }
                 }
@@ -179,6 +174,15 @@ Polynomial::Polynomial(const std::vector<RationalC::Rational>& coeffs,
 // Assignment Operator
 Polynomial& Polynomial::operator = (const Polynomial& rhs)
 {
+    if (&rhs == this)
+    {
+        this->expressions.clear();
+        for (size_t i = 0; i < rhs.expressions.size(); i++)
+        {
+            auto toAdd = new IndeterminantC::Indeterminant(rhs.expressions[i]);
+            this->expressions.push_back(*toAdd);
+        }
+    }
     return *this;
 }
 
@@ -214,16 +218,10 @@ Polynomial Polynomial::derive() const
     {
         // Coeff Calculations
         auto newCoeff = RationalC::Rational((this->expressions[i].getCoeff()) * (this->expressions[i].getDegree()));
-        bool prevNegative = this->expressions[i].getCoeff().getNegative();
-        bool prevDegreeNegative = this->expressions[i].getDegree().getNegative();
-        // Setting the negative
-        if (prevNegative && prevDegreeNegative) newCoeff.setNegative(false);
-        else if (prevDegreeNegative) newCoeff.setNegative(true);
-        else if (prevNegative) newCoeff.setNegative(true);
-        else newCoeff.setNegative(false);
+//        std::cout << newCoeff.getNum() << std::endl;
         // Degree Calculations
         auto newDegree = RationalC::Rational(--(this->expressions[i].getDegree()));
-
+        
         // Constructor used: Indeterminant(degree, coeff)
         auto derived = new IndeterminantC::Indeterminant(newDegree, newCoeff);
         result.expressions.push_back(*derived);
@@ -238,6 +236,13 @@ Polynomial Polynomial::derive() const
 Polynomial Polynomial::integrate() const
 {
     Polynomial result;
+    for (size_t i = 0; i < this->expressions.size(); i++)
+    {
+        auto newDegree = RationalC::Rational(++(this->expressions[i].getDegree()));
+        auto newCoeff = RationalC::Rational(this->expressions[i].getCoeff() / newDegree);
+        auto integrated = new IndeterminantC::Indeterminant(newDegree, newCoeff);
+        result.expressions.push_back(*integrated);
+    }
     return result;
 }
 
@@ -247,9 +252,14 @@ Polynomial Polynomial::integrate() const
    @param x Whatever value that should be evaluated
    @return Whatever value results from entering the value within the polynomial
 */
-double Polynomial::evaluate(double x)
+float Polynomial::evaluate(float x)
 {
-    return 0.0;
+    float result = 0;
+    for (size_t i = 0; i < this->expressions.size(); i++)
+    {
+        result += (this->expressions[i].getCoeff().evaluate() * pow(x, this->expressions[i].getDegree().evaluate()));
+    }
+    return result;
 }
 
 }
