@@ -16,15 +16,9 @@
 # include <string>
 
 // Polynomial relies on Rational numbers to build its constructor
-namespace RationalC
-{
-    class Rational;
-}
+namespace RationalC { class Rational; }
 
-namespace IndeterminantC
-{
-    class Indeterminant;
-}
+namespace IndeterminantC { class Indeterminant; }
 
 namespace PolynomialC
 {

@@ -11,19 +11,19 @@
 # include "Rational.hpp"
 # include "Polynomial.hpp"
 # include "Indeterminant.hpp"
+# include "Exponential.hpp"
 
 using namespace RationalC;
 using namespace IndeterminantC;
 using namespace PolynomialC;
+using namespace ExponentialC;
 
-int main()
+void rationalPolynomialTest()
 {
     auto test = Rational(2, 6);
     auto test2 = Rational(-2, 4);
     auto test3 = Rational(2, 1);
     auto test4 = Rational(3, 1);
-//    auto test4 = Polynomial("3 x ^2 + 3x  ^3");
-//    std::cout << test4 << std::endl;
     auto test5 = Polynomial({test, test2}, {test3, test4});
     std::cout << test5 << std::endl;
     test5.sortExpression();
@@ -39,5 +39,15 @@ int main()
     {
         std::cout << test5.evaluate(i) << std::endl;
     }
+}
+
+void runTestCases()
+{
+//    rationalPolynomialTest();
+}
+
+int main()
+{
+    runTestCases();
     return 0;
 }

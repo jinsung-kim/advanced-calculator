@@ -11,10 +11,7 @@
 # include "Rational.hpp"
 # include <iostream>
 
-namespace RationalC
-{
-    class Rational;
-}
+namespace RationalC { class Rational; }
 
 namespace IndeterminantC
 {
