@@ -25,9 +25,19 @@ int main()
 //    auto test4 = Polynomial("3 x ^2 + 3x  ^3");
 //    std::cout << test4 << std::endl;
     auto test5 = Polynomial({test, test2}, {test3, test4});
+    std::cout << test5 << std::endl;
     test5.sortExpression();
-//    std::cout << test5 << std::endl;
+    std::cout << test5 << std::endl;
     auto test5D = test5.derive();
+    auto test5DD = test5.derive().derive();
+    auto test5DDD = test5.derive().derive().derive();
     std::cout << test5D << std::endl;
+    std::cout << test5DD << std::endl;
+    std::cout << test5DDD << std::endl;
+    std::cout << test5DDD.derive() << std::endl;
+    for (size_t i = 0; i < 5; i++)
+    {
+        std::cout << test5.evaluate(i) << std::endl;
+    }
     return 0;
 }
