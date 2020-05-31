@@ -41,9 +41,21 @@ void rationalPolynomialTest()
     }
 }
 
+void exponentialTest()
+{
+    auto test = Rational(2, 6);
+    auto test2 = Rational(-2, 4);
+    auto test3 = Rational(2, 1);
+    auto test4 = Rational(3, 1);
+    auto test5 = Polynomial({test, test2}, {test3, test4});
+    auto test6 = Exponential(test, test5);
+    std::cout << test6 << std::endl;
+}
+
 void runTestCases()
 {
 //    rationalPolynomialTest();
+    exponentialTest();
 }
 
 int main()

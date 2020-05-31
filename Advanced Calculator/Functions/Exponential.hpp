@@ -12,6 +12,17 @@
 # include "Rational.hpp"
 # include "Polynomial.hpp"
 
+/*
+ Separated into two cases:
+ Typical case: In which the base is an rational number
+ and the power contains a polynomial expression
+ Special case: The base is a rational number that are
+ commonly used as math symbols such as 'e' and 'π'
+ in which we can represent a special exponential
+ expression
+ The base of the special case is irrelevant, and will not be used for calculations
+ */
+
 namespace RationalC { class Rational; }
 
 namespace PolynomialC { class Polynomial; }
@@ -27,14 +38,18 @@ public:
     // Default constructor creates 0
     Exponential();
     // Char as base indicates special case in which the base is 'e'
-    Exponential(char, const PolynomialC::Polynomial&);
+    Exponential(const std::string&, const PolynomialC::Polynomial&);
     Exponential(const RationalC::Rational&,
                 const PolynomialC::Polynomial&);
-    
+    // Copy Constructor
+    Exponential(const Exponential&);
+    // Assignment Operator
+    Exponential& operator = (const Exponential&);
     
 private:
     RationalC::Rational base;
     PolynomialC::Polynomial pow;
+    double val; // If there is a special case, we change the value of 'val'
 };
 
 }
