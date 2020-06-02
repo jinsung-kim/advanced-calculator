@@ -13,9 +13,8 @@
 # include <math.h>
 
 // Polynomial relies on Rational numbers to build its constructor
-namespace RationalC { class Rational; }
-
-namespace IndeterminantC { class Indeterminant; }
+using namespace RationalC;
+using namespace IndeterminantC;
 
 namespace PolynomialC
 {
@@ -107,39 +106,53 @@ Polynomial::Polynomial(): var('x') {}
 Polynomial::Polynomial(std::string expression)
 {
     expression.erase(std::remove_if(expression.begin(), expression.end(), ::isspace), expression.end());
-    RationalC::Rational* degree = nullptr;
-    RationalC::Rational* coeff = nullptr;
-//    int hold = 0;
-    size_t i = 0;
-    // Ex: 3x^2+3x^3
-    while (i < expression.size())
+    std::string split = "";
+    std::vector<std::string> terms;
+    for (size_t i = 0; i < expression.length(); i++)
     {
-        if (std::isdigit(expression[i])) // Checks if the value is numeric
+        if (expression[i] == '+' || expression[i] == '-') // A new term to separate
         {
-            
+            if (split != "") terms.push_back(split);
+            split = expression[i];
         }
-        else // Not a numeric value
+        else
         {
-            if (expression[i] == '-') // negative sign
-            {
-                degree->setNegative(true);
-            }
-            else if (expression[i] == '/') // Fraction
-            {
-                
-            }
-            else if (std::isalpha(expression[i])) // If not '+' or '-', must be the variable being held
-            {
-                this->var = expression[i];
-            }
-        }
-        // Both degree + coefficient have been found
-        if (true)
-        {
-            auto toAdd = new IndeterminantC::Indeterminant(*degree, *coeff);
-            this->expressions.push_back(*toAdd);
+            split += expression[i];
         }
     }
+    if (split != "") terms.push_back(split);
+    for (const std::string& term: terms)
+    {
+        Rational* coeff = nullptr;
+        Rational* degree = nullptr;
+        size_t ind = term.find('^');
+        std::string degreeString = term.substr(ind + 1);
+        this->var = term[ind - 1];
+        std::string coeffString = term.substr(0, ind - 1);
+        if (coeffString.find('/') == std::string::npos) // No fraction within the coefficient
+        {
+            coeff = new Rational(std::stoi(coeffString));
+        }
+        else // Fraction is found and needs to be divided
+        {
+            std::string before = coeffString.substr(0, coeffString.find('/'));
+            std::string after = coeffString.substr(coeffString.find('/') + 1);
+            coeff = new Rational(std::stoi(before), std::stoi(after));
+        }
+        if (degreeString.find('/') == std::string::npos) // No fraction within the degree
+        {
+            degree = new Rational(std::stoi(degreeString));
+        }
+        else // Fraction is found and needs to be divided
+        {
+            std::string before = degreeString.substr(0, degreeString.find('/'));
+            std::string after = degreeString.substr(degreeString.find('/') + 1);
+            degree = new Rational(std::stoi(before), std::stoi(after));
+        }
+        Indeterminant* toAdd = new Indeterminant(*degree, *coeff);
+        this->expressions.push_back(*toAdd); // Add to the expressions list
+    }
+    terms.clear();
 }
 
 // Copy Constructor
@@ -148,7 +161,7 @@ Polynomial::Polynomial(const Polynomial& rhs)
     this->var = rhs.var;
     for (size_t i = 0; i < rhs.expressions.size(); i++)
     {
-        auto toAdd = new IndeterminantC::Indeterminant(rhs.expressions[i]);
+        auto toAdd = new Indeterminant(rhs.expressions[i]);
         this->expressions.push_back(*toAdd);
     }
 }
@@ -159,13 +172,13 @@ Polynomial::Polynomial(const Polynomial& rhs)
  @param coeffs Rational vector containing all of the coefficients
  @param degrees Rational vector containing all of the degrees
  */
-Polynomial::Polynomial(const std::vector<RationalC::Rational>& coeffs,
-                       const std::vector<RationalC::Rational>& degrees)
+Polynomial::Polynomial(const std::vector<Rational>& coeffs,
+                       const std::vector<Rational>& degrees)
 {
     for (size_t i = 0; i < coeffs.size(); i++)
     {
         // Constructor being called: Indeterminant(degree, coeff);
-        auto toAdd = new IndeterminantC::Indeterminant(degrees[i], coeffs[i]);
+        auto toAdd = new Indeterminant(degrees[i], coeffs[i]);
         this->expressions.push_back(*toAdd);
     }
     this->var = 'x';
@@ -179,12 +192,17 @@ Polynomial& Polynomial::operator = (const Polynomial& rhs)
         this->expressions.clear();
         for (size_t i = 0; i < rhs.expressions.size(); i++)
         {
-            auto toAdd = new IndeterminantC::Indeterminant(rhs.expressions[i].getDegree(),
-                                                           rhs.expressions[i].getCoeff());
+            auto toAdd = new Indeterminant(rhs.expressions[i].getDegree(),
+                                           rhs.expressions[i].getCoeff());
             this->expressions.push_back(*toAdd);
         }
     }
     return *this;
+}
+
+Polynomial::~Polynomial()
+{
+    this->expressions.clear();
 }
 
 // Sorting degrees in order - A simple selection sort
@@ -218,12 +236,12 @@ Polynomial Polynomial::derive() const
     for (size_t i = 0; i < this->expressions.size(); i++)
     {
         // Coeff Calculations
-        auto newCoeff = RationalC::Rational((this->expressions[i].getCoeff()) * (this->expressions[i].getDegree()));
+        auto newCoeff = Rational((this->expressions[i].getCoeff()) * (this->expressions[i].getDegree()));
         // Degree Calculations
-        auto newDegree = RationalC::Rational(--(this->expressions[i].getDegree()));
+        auto newDegree = Rational(--(this->expressions[i].getDegree()));
         
         // Constructor used: Indeterminant(degree, coeff)
-        auto derived = new IndeterminantC::Indeterminant(newDegree, newCoeff);
+        auto derived = new Indeterminant(newDegree, newCoeff);
         result.expressions.push_back(*derived);
     }
     return result;
@@ -238,9 +256,9 @@ Polynomial Polynomial::integrate() const
     Polynomial result;
     for (size_t i = 0; i < this->expressions.size(); i++)
     {
-        auto newDegree = RationalC::Rational(++(this->expressions[i].getDegree()));
-        auto newCoeff = RationalC::Rational(this->expressions[i].getCoeff() / newDegree);
-        auto integrated = new IndeterminantC::Indeterminant(newDegree, newCoeff);
+        auto newDegree = Rational(++(this->expressions[i].getDegree()));
+        auto newCoeff = Rational(this->expressions[i].getCoeff() / newDegree);
+        auto integrated = new Indeterminant(newDegree, newCoeff);
         result.expressions.push_back(*integrated);
     }
     return result;
@@ -257,7 +275,8 @@ float Polynomial::evaluate(float x) const
     float result = 0;
     for (size_t i = 0; i < this->expressions.size(); i++)
     {
-        result += (this->expressions[i].getCoeff().evaluate() * pow(x, this->expressions[i].getDegree().evaluate()));
+        result += (this->expressions[i].getCoeff().evaluate() *
+                   pow(x, this->expressions[i].getDegree().evaluate()));
     }
     return result;
 }
