@@ -35,10 +35,7 @@ void rationalPolynomialTest()
     std::cout << test5DD << std::endl;
     std::cout << test5DDD << std::endl;
     std::cout << test5DDD.derive() << std::endl;
-    for (size_t i = 0; i < 5; i++)
-    {
-        std::cout << test5.evaluate(i) << std::endl;
-    }
+    for (size_t i = 0; i < 5; i++) std::cout << test5.evaluate(i) << std::endl;
 }
 
 void exponentialTest()
@@ -48,10 +45,8 @@ void exponentialTest()
     auto test3 = Rational(2, 1);
     auto test4 = Rational(3, 1);
     auto test5 = Polynomial({test, test2}, {test3, test4});
-    auto test6 = Exponential(test, test5);
     auto test7 = Exponential("pi", test5);
     auto test8 = Exponential("e", test5);
-    std::cout << test6 << std::endl;
     std::cout << test7 << std::endl;
     std::cout << test8 << std::endl;
 }

@@ -32,7 +32,7 @@ degree(degree), coeff(coeff) {}
 Indeterminant::Indeterminant(const Indeterminant& rhs): degree(rhs.degree), coeff(rhs.coeff) {}
 
 // Assignment Operator
-Indeterminant& Indeterminant::operator=(const Indeterminant& rhs)
+Indeterminant& Indeterminant::operator = (const Indeterminant& rhs)
 {
     if (&rhs != this)
     {

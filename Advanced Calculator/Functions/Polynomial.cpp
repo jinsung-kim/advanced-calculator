@@ -174,12 +174,13 @@ Polynomial::Polynomial(const std::vector<RationalC::Rational>& coeffs,
 // Assignment Operator
 Polynomial& Polynomial::operator = (const Polynomial& rhs)
 {
-    if (&rhs == this)
+    if (&rhs != this)
     {
         this->expressions.clear();
         for (size_t i = 0; i < rhs.expressions.size(); i++)
         {
-            auto toAdd = new IndeterminantC::Indeterminant(rhs.expressions[i]);
+            auto toAdd = new IndeterminantC::Indeterminant(rhs.expressions[i].getDegree(),
+                                                           rhs.expressions[i].getCoeff());
             this->expressions.push_back(*toAdd);
         }
     }

@@ -48,7 +48,7 @@ Exponential::Exponential(const std::string& c, const PolynomialC::Polynomial& po
 }
 
 Exponential::Exponential(const RationalC::Rational& base,
-                         const PolynomialC::Polynomial& pow): base(base), pow(pow) {}
+                         const PolynomialC::Polynomial& pow): base(base), pow(pow), val(0.0) {}
 
 // Copy Constructor
 Exponential::Exponential(const Exponential& rhs): base(rhs.base), pow(rhs.pow), val(rhs.val) {}
