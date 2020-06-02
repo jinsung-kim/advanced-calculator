@@ -49,7 +49,11 @@ void exponentialTest()
     auto test4 = Rational(3, 1);
     auto test5 = Polynomial({test, test2}, {test3, test4});
     auto test6 = Exponential(test, test5);
+    auto test7 = Exponential("pi", test5);
+    auto test8 = Exponential("e", test5);
     std::cout << test6 << std::endl;
+    std::cout << test7 << std::endl;
+    std::cout << test8 << std::endl;
 }
 
 void runTestCases()
