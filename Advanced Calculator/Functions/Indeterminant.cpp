@@ -10,7 +10,7 @@
 # include "Rational.hpp"
 # include <iostream>
 
-namespace RationalC { class Rational; }
+using namespace RationalC;
 
 namespace IndeterminantC
 {
@@ -21,12 +21,12 @@ std::ostream& operator << (std::ostream& os, const Indeterminant& rhs)
     return os;
 }
 
-Indeterminant::Indeterminant(): degree(RationalC::Rational()), coeff(RationalC::Rational()) {}
+Indeterminant::Indeterminant(): degree(Rational()), coeff(Rational()) {}
 
 Indeterminant::Indeterminant(int degree, int coeff):
-degree(RationalC::Rational(degree, 1)), coeff(RationalC::Rational(coeff, 1)) {}
+degree(Rational(degree, 1)), coeff(Rational(coeff, 1)) {}
 
-Indeterminant::Indeterminant(const RationalC::Rational& degree, const RationalC::Rational& coeff):
+Indeterminant::Indeterminant(const Rational& degree, const Rational& coeff):
 degree(degree), coeff(coeff) {}
 
 Indeterminant::Indeterminant(const Indeterminant& rhs): degree(rhs.degree), coeff(rhs.coeff) {}
@@ -43,13 +43,13 @@ Indeterminant& Indeterminant::operator = (const Indeterminant& rhs)
 }
 
 // Getters
-RationalC::Rational Indeterminant::getDegree() const { return this->degree; }
+Rational Indeterminant::getDegree() const { return this->degree; }
 
-RationalC::Rational Indeterminant::getCoeff() const { return this->coeff; }
+Rational Indeterminant::getCoeff() const { return this->coeff; }
 
 // Setters
-void Indeterminant::setDegree(const RationalC::Rational& degree) { this->degree = degree; }
+void Indeterminant::setDegree(const Rational& degree) { this->degree = degree; }
 
-void Indeterminant::setCoeff(const RationalC::Rational& coeff) { this->coeff = coeff; }
+void Indeterminant::setCoeff(const Rational& coeff) { this->coeff = coeff; }
 
 }

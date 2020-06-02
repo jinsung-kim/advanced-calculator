@@ -25,7 +25,7 @@ namespace PolynomialC
 
 class Polynomial
 {
-    friend std::ostream& operator << (std::ostream& os, const Polynomial& rhs);
+    friend std::ostream& operator << (std::ostream&, const Polynomial&);
 public:
     // Constructors
     Polynomial();
@@ -41,6 +41,8 @@ public:
     
     // Assignment Operator
     Polynomial& operator = (const Polynomial& rhs);
+    
+    ~Polynomial();
     
     // Sorting degrees in order
     void sortExpression();

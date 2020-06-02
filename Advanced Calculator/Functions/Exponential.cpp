@@ -17,9 +17,8 @@
 # define e 2.718281828459
 # define pi 3.14159265359
 
-namespace RationalC { class Rational; }
-
-namespace PolynomialC { class Polynomial; }
+using namespace PolynomialC;
+using namespace RationalC;
 
 namespace ExponentialC
 {
@@ -37,7 +36,7 @@ std::ostream& operator << (std::ostream& os, const Exponential& rhs)
 // creates this case
 Exponential::Exponential(): val(0.0) {}
 
-Exponential::Exponential(const std::string& c, const PolynomialC::Polynomial& pow)
+Exponential::Exponential(const std::string& c, const Polynomial& pow)
 {
     // 'e' -> Euler's Number
     // 'pi' -> π
@@ -48,8 +47,8 @@ Exponential::Exponential(const std::string& c, const PolynomialC::Polynomial& po
     this->power = pow; // Refers to Polynomial assignment operator
 }
 
-Exponential::Exponential(const RationalC::Rational& base,
-                         const PolynomialC::Polynomial& pow): base(base), power(pow), val(0.0) {}
+Exponential::Exponential(const Rational& base,
+                         const Polynomial& pow): base(base), power(pow), val(0.0) {}
 
 // Copy Constructor
 Exponential::Exponential(const Exponential& rhs): base(rhs.base), power(rhs.power), val(rhs.val) {}
@@ -64,6 +63,10 @@ Exponential& Exponential::operator = (const Exponential& rhs)
     }
     return *this;
 }
+
+// Integrate
+
+// Derive
 
 float Exponential::evaluate(float x) const
 {

@@ -12,6 +12,9 @@
 		A15A224F247C7B59005ACA41 /* Indeterminant.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A15A224D247C7B59005ACA41 /* Indeterminant.cpp */; };
 		A15CE2CF247C13C700859338 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A15CE2CE247C13C700859338 /* main.cpp */; };
 		A15CE2D8247C2BE300859338 /* Rational.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A15CE2D6247C2BE300859338 /* Rational.cpp */; };
+		A1FC60002485FEFD001DCCD5 /* Expression.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A1FC5FFE2485FEFD001DCCD5 /* Expression.cpp */; };
+		A1FC600324860495001DCCD5 /* Logarithm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A1FC600124860495001DCCD5 /* Logarithm.cpp */; };
+		A1FC60062486921E001DCCD5 /* NaturalLog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A1FC60042486921E001DCCD5 /* NaturalLog.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -37,6 +40,12 @@
 		A15CE2CE247C13C700859338 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		A15CE2D6247C2BE300859338 /* Rational.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Rational.cpp; sourceTree = "<group>"; };
 		A15CE2D7247C2BE300859338 /* Rational.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Rational.hpp; sourceTree = "<group>"; };
+		A1FC5FFE2485FEFD001DCCD5 /* Expression.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Expression.cpp; sourceTree = "<group>"; };
+		A1FC5FFF2485FEFD001DCCD5 /* Expression.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Expression.hpp; sourceTree = "<group>"; };
+		A1FC600124860495001DCCD5 /* Logarithm.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Logarithm.cpp; sourceTree = "<group>"; };
+		A1FC600224860495001DCCD5 /* Logarithm.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Logarithm.hpp; sourceTree = "<group>"; };
+		A1FC60042486921E001DCCD5 /* NaturalLog.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NaturalLog.cpp; sourceTree = "<group>"; };
+		A1FC60052486921E001DCCD5 /* NaturalLog.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NaturalLog.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +87,10 @@
 		A15CE2D5247C2BBF00859338 /* Functions */ = {
 			isa = PBXGroup;
 			children = (
+				A1FC600124860495001DCCD5 /* Logarithm.cpp */,
+				A1FC600224860495001DCCD5 /* Logarithm.hpp */,
+				A1FC60042486921E001DCCD5 /* NaturalLog.cpp */,
+				A1FC60052486921E001DCCD5 /* NaturalLog.hpp */,
 				A15CE2D6247C2BE300859338 /* Rational.cpp */,
 				A15CE2D7247C2BE300859338 /* Rational.hpp */,
 				A15A2247247C3EEB005ACA41 /* Polynomial.cpp */,
@@ -86,6 +99,8 @@
 				A15A224E247C7B59005ACA41 /* Indeterminant.hpp */,
 				A141FC882480233B00A3433D /* Exponential.cpp */,
 				A141FC892480233B00A3433D /* Exponential.hpp */,
+				A1FC5FFE2485FEFD001DCCD5 /* Expression.cpp */,
+				A1FC5FFF2485FEFD001DCCD5 /* Expression.hpp */,
 			);
 			path = Functions;
 			sourceTree = "<group>";
@@ -147,10 +162,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1FC60062486921E001DCCD5 /* NaturalLog.cpp in Sources */,
 				A141FC8A2480233B00A3433D /* Exponential.cpp in Sources */,
+				A1FC60002485FEFD001DCCD5 /* Expression.cpp in Sources */,
 				A15A224F247C7B59005ACA41 /* Indeterminant.cpp in Sources */,
 				A15CE2CF247C13C700859338 /* main.cpp in Sources */,
 				A15CE2D8247C2BE300859338 /* Rational.cpp in Sources */,
+				A1FC600324860495001DCCD5 /* Logarithm.cpp in Sources */,
 				A15A2249247C3EEB005ACA41 /* Polynomial.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

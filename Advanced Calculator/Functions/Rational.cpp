@@ -28,13 +28,8 @@ int LCM(int a, int b)
     int max = (a > b) ? a : b;
     do
     {
-        if (max % a == 0 && max % b == 0)
-        {
-            return max;
-            break;
-        }
-        else
-            ++max;
+        if (max % a == 0 && max % b == 0) return max;
+        else ++max;
     } while (true);
 }
 

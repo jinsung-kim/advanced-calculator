@@ -16,19 +16,19 @@ namespace RationalC
 
 class Rational
 {
-    friend std::ostream& operator << (std::ostream& os, const Rational& rhs);
-    friend bool operator == (const Rational& lhs, const Rational& rhs);
-    friend bool operator == (const Rational& lhs, int constant);
-    friend bool operator != (const Rational& lhs, const Rational& rhs);
-    friend bool operator != (const Rational& lhs, int constant);
-    friend Rational operator + (const Rational& lhs, const Rational& rhs);
-    friend Rational operator - (const Rational& lhs, const Rational& rhs);
-    friend Rational operator * (const Rational& lhs, const Rational& rhs);
-    friend Rational operator / (const Rational& lhs, const Rational& rhs);
-    friend bool operator < (const Rational& lhs, const Rational& rhs);
-    friend bool operator < (const Rational& lhs, int constant);
-    friend bool operator > (const Rational& lhs, const Rational& rhs);
-    friend bool operator > (const Rational& lhs, int constant);
+    friend std::ostream& operator << (std::ostream&, const Rational&);
+    friend bool operator == (const Rational&, const Rational&);
+    friend bool operator == (const Rational&, int);
+    friend bool operator != (const Rational&, const Rational&);
+    friend bool operator != (const Rational&, int);
+    friend Rational operator + (const Rational&, const Rational&);
+    friend Rational operator - (const Rational&, const Rational&);
+    friend Rational operator * (const Rational&, const Rational&);
+    friend Rational operator / (const Rational&, const Rational&);
+    friend bool operator < (const Rational&, const Rational&);
+    friend bool operator < (const Rational&, int);
+    friend bool operator > (const Rational&, const Rational&);
+    friend bool operator > (const Rational&, int);
 public:
     // Constructors
     Rational();

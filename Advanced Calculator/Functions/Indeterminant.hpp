@@ -18,7 +18,7 @@ namespace IndeterminantC
 
 class Indeterminant
 {
-    friend std::ostream& operator << (std::ostream& os, const Indeterminant& rhs);
+    friend std::ostream& operator << (std::ostream&, const Indeterminant&);
 public:
     Indeterminant();
     Indeterminant(int, int);
