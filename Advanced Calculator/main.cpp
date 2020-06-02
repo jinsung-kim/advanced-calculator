@@ -49,6 +49,8 @@ void exponentialTest()
     auto test8 = Exponential("e", test5);
     std::cout << test7 << std::endl;
     std::cout << test8 << std::endl;
+    std::cout << test7.evaluate(1) << std::endl;
+    std::cout << test8.evaluate(1) << std::endl;
 }
 
 void runTestCases()

@@ -8,6 +8,7 @@
 
 # include <iostream>
 # include <exception>
+# include <math.h>
 # include "Exponential.hpp"
 # include "Rational.hpp"
 # include "Polynomial.hpp"
@@ -25,9 +26,9 @@ namespace ExponentialC
 
 std::ostream& operator << (std::ostream& os, const Exponential& rhs)
 {
-    if (rhs.val == e) os << "e^(" << rhs.pow << ")";
-    else if (rhs.val == pi) os << "π^(" << rhs.pow << ")";
-    else os << rhs.base << "^(" << rhs.pow << ")";
+    if (rhs.val == e) os << "e^(" << rhs.power << ")";
+    else if (rhs.val == pi) os << "π^(" << rhs.power << ")";
+    else os << rhs.base << "^(" << rhs.power << ")";
     return os;
 }
 
@@ -44,24 +45,39 @@ Exponential::Exponential(const std::string& c, const PolynomialC::Polynomial& po
     if (c == "e") this->val = e;
     else this->val = pi;
     this->base = 0;
-    this->pow = pow; // Refers to Polynomial assignment operator
+    this->power = pow; // Refers to Polynomial assignment operator
 }
 
 Exponential::Exponential(const RationalC::Rational& base,
-                         const PolynomialC::Polynomial& pow): base(base), pow(pow), val(0.0) {}
+                         const PolynomialC::Polynomial& pow): base(base), power(pow), val(0.0) {}
 
 // Copy Constructor
-Exponential::Exponential(const Exponential& rhs): base(rhs.base), pow(rhs.pow), val(rhs.val) {}
+Exponential::Exponential(const Exponential& rhs): base(rhs.base), power(rhs.power), val(rhs.val) {}
 
 Exponential& Exponential::operator = (const Exponential& rhs)
 {
     if (&rhs != this)
     {
         this->base = rhs.base;
-        this->pow = rhs.pow;
+        this->power = rhs.power;
         this->val = rhs.val;
     }
     return *this;
+}
+
+float Exponential::evaluate(float x) const
+{
+    float result = 0.0;
+    if (this->val == 0.0) // Normal case
+    {
+        result = this->base.evaluate();
+        result = pow(result, this->power.evaluate(x));
+    }
+    else // Special case
+    {
+        result = pow(this->val, this->power.evaluate(x));
+    }
+    return result;
 }
 
 }

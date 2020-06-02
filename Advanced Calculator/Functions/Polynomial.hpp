@@ -50,7 +50,7 @@ public:
     Polynomial integrate() const;
     
     // Algebraic Operations
-    float evaluate(float);
+    float evaluate(float) const;
     
 private:
     std::vector<IndeterminantC::Indeterminant> expressions;

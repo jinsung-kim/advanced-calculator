@@ -46,9 +46,16 @@ public:
     // Assignment Operator
     Exponential& operator = (const Exponential&);
     
+    // Integrate
+    
+    // Derive
+    
+    // Evaluate
+    float evaluate(float x) const;
+    
 private:
     RationalC::Rational base;
-    PolynomialC::Polynomial pow;
+    PolynomialC::Polynomial power;
     double val; // If there is a special case, we change the value of 'val'
 };
 

@@ -219,7 +219,6 @@ Polynomial Polynomial::derive() const
     {
         // Coeff Calculations
         auto newCoeff = RationalC::Rational((this->expressions[i].getCoeff()) * (this->expressions[i].getDegree()));
-//        std::cout << newCoeff.getNum() << std::endl;
         // Degree Calculations
         auto newDegree = RationalC::Rational(--(this->expressions[i].getDegree()));
         
@@ -253,7 +252,7 @@ Polynomial Polynomial::integrate() const
    @param x Whatever value that should be evaluated
    @return Whatever value results from entering the value within the polynomial
 */
-float Polynomial::evaluate(float x)
+float Polynomial::evaluate(float x) const
 {
     float result = 0;
     for (size_t i = 0; i < this->expressions.size(); i++)
