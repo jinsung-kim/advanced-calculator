@@ -26,7 +26,7 @@ using namespace PolynomialC;
 using namespace LogarithmC;
 using namespace NaturalLogC;
 
-const std::string validVariables = "abcdefghijklmnopqrstuvwxyz";
+const std::string validVariables = "abcdfghjklmnoqrstuvwxyz"; // Excluded e and pi
 
 namespace ExpressionC
 {

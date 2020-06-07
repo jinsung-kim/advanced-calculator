@@ -88,8 +88,9 @@ void logarithmTest()
 void expressionTest()
 {
     auto test = Expression("(2^x)(x^3+2x) + (log(x))(3/4)");
-//    auto test2 = Expression("(ln(2x))*(e^3x) + (1/3)*(3/4x^3)");
+    auto test2 = Expression("(ln(2x))*(e^3x) + (1/3)*(3/4x^3)");
     std::cout << test << std::endl;
+    std::cout << test2 << std::endl;
 }
 
 void runTestCases()

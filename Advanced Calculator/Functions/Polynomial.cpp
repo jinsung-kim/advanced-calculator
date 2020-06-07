@@ -16,7 +16,7 @@
 using namespace RationalC;
 using namespace IndeterminantC;
 
-const std::string validVars = "abcdefghijklmnopqrstuvwxyz";
+const std::string validVars = "abcdfghjklmnoqrstuvwxyz"; // Excluded e and pi
 
 namespace PolynomialC
 {
