@@ -5,10 +5,10 @@
 //  Created by Jin Kim on 5/25/20.
 //  Copyright © 2020 Jin Kim. All rights reserved.
 //
-
-# include "Rational.hpp"
 # include <iostream>
 # include <exception>
+
+# include "Rational.hpp"
 
 // Used to reduce
 // Does not work with negative integers

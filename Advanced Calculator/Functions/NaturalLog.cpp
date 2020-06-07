@@ -5,13 +5,14 @@
 //  Created by Jin Kim on 6/2/20.
 //  Copyright © 2020 Jin Kim. All rights reserved.
 //
-# include "NaturalLog.hpp"
-# include "Rational.hpp"
-# include "Polynomial.hpp"
 # include <exception>
 # include <math.h>
 # include <iostream>
 # include <algorithm>
+
+# include "NaturalLog.hpp"
+# include "Rational.hpp"
+# include "Polynomial.hpp"
 
 using namespace RationalC;
 using namespace PolynomialC;

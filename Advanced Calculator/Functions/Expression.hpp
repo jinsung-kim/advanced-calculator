@@ -5,19 +5,20 @@
 //  Created by Jin Kim on 6/1/20.
 //  Copyright © 2020 Jin Kim. All rights reserved.
 //
-
 # ifndef Expression_hpp
 # define Expression_hpp
+
+# include <iostream>
+# include <vector>
+# include <string>
+# include <unordered_map>
+
 # include "Exponential.hpp"
 # include "Indeterminant.hpp"
 # include "Polynomial.hpp"
 # include "Rational.hpp"
 # include "NaturalLog.hpp"
 # include "Logarithm.hpp"
-# include <iostream>
-# include <vector>
-# include <string>
-# include <unordered_map>
 
 namespace ExponentialC { class Exponential; }
 namespace IndeterminantC { class Indeterminant; }
@@ -31,6 +32,7 @@ namespace ExpressionC
 
 class Expression
 {
+    friend std::ostream& operator << (std::ostream&, const Expression&);
 public:
     Expression(std::string);
     

@@ -5,11 +5,12 @@
 //  Created by Jin Kim on 5/25/20.
 //  Copyright © 2020 Jin Kim. All rights reserved.
 //
-
 # ifndef Indeterminant_hpp
 # define Indeterminant_hpp
-# include "Rational.hpp"
+
 # include <iostream>
+
+# include "Rational.hpp"
 
 namespace RationalC { class Rational; }
 

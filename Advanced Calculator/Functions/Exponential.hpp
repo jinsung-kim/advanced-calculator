@@ -5,10 +5,11 @@
 //  Created by Jin Kim on 5/28/20.
 //  Copyright © 2020 Jin Kim. All rights reserved.
 //
-
 # ifndef Exponential_hpp
 # define Exponential_hpp
+
 # include <iostream>
+
 # include "Rational.hpp"
 # include "Polynomial.hpp"
 

@@ -5,10 +5,10 @@
 //  Created by Jin Kim on 5/28/20.
 //  Copyright © 2020 Jin Kim. All rights reserved.
 //
-
 # include <iostream>
 # include <exception>
 # include <math.h>
+
 # include "Exponential.hpp"
 # include "Rational.hpp"
 # include "Polynomial.hpp"

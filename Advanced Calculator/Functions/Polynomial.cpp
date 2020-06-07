@@ -5,12 +5,12 @@
 //  Created by Jin Kim on 5/25/20.
 //  Copyright © 2020 Jin Kim. All rights reserved.
 //
-
-# include "Polynomial.hpp"
-# include "Indeterminant.hpp"
 # include <iostream>
 # include <vector>
 # include <math.h>
+
+# include "Polynomial.hpp"
+# include "Indeterminant.hpp"
 
 // Polynomial relies on Rational numbers to build its constructor
 using namespace RationalC;

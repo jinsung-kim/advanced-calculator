@@ -5,8 +5,8 @@
 //  Created by Jin Kim on 5/25/20.
 //  Copyright © 2020 Jin Kim. All rights reserved.
 //
-
 # include <iostream>
+
 # include "Indeterminant.hpp"
 # include "Rational.hpp"
 

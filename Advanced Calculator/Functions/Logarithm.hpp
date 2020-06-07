@@ -5,10 +5,10 @@
 //  Created by Jin Kim on 6/1/20.
 //  Copyright © 2020 Jin Kim. All rights reserved.
 //
-
 # ifndef Logarithm_hpp
 # define Logarithm_hpp
 # include <iostream>
+
 # include "Rational.hpp"
 # include "Polynomial.hpp"
 

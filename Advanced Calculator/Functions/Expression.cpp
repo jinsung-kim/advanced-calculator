@@ -5,18 +5,19 @@
 //  Created by Jin Kim on 6/1/20.
 //  Copyright © 2020 Jin Kim. All rights reserved.
 //
-
-# include "Expression.hpp"
-# include "Exponential.hpp"
-# include "Indeterminant.hpp"
-# include "Polynomial.hpp"
-# include "Rational.hpp"
 # include <iostream>
 # include <string>
 # include <vector>
 # include <stack>
 # include <exception>
 # include <algorithm>
+# include <unordered_map>
+
+# include "Expression.hpp"
+# include "Exponential.hpp"
+# include "Indeterminant.hpp"
+# include "Polynomial.hpp"
+# include "Rational.hpp"
 
 using namespace ExponentialC;
 using namespace IndeterminantC;
@@ -29,6 +30,15 @@ const std::string validVariables = "abcdefghijklmnopqrstuvwxyz";
 
 namespace ExpressionC
 {
+
+std::ostream& operator << (std::ostream& os, const Expression& rhs)
+{
+    for (size_t i = 0; i < rhs.negative.size(); i++)
+    {
+        
+    }
+    return os;
+}
 
 /*
  Example inputs:
@@ -89,7 +99,7 @@ Expression::Expression(std::string input)
     size_t i = 0;
     for (const std::string& term: terms)
     {
-        if (term.find("^") != std::string::npos) // Polynomial or Exponential
+        if (term.find('^') != std::string::npos) // Polynomial or Exponential
         {
             /*
              Ex: x^2+3x^4+2x
@@ -97,7 +107,7 @@ Expression::Expression(std::string input)
              If a character is found before the first '^', it must be a polynomial
              If the character is found after, then it must be exponential
              */
-            if (term.find_first_of(validVariables) > term.find_first_of("^"))
+            if (term.find_first_of(validVariables) > term.find_first_of('^'))
             {
                 auto toAdd = new Polynomial(term);
                 auto vec = this->polynomials[termIndex[i]];
@@ -124,12 +134,19 @@ Expression::Expression(std::string input)
         else if (term.find("ln") != std::string::npos) // Natural log Function
         {
             // Ex: ln(x)
+            auto toAdd = new NaturalLog(term);
+            auto vec = this->naturals[termIndex[i]];
+            vec.push_back(*toAdd);
+            this->naturals[termIndex[i]] = vec;
         }
         else // Assuming there is no exponent, this must be a rational
         {
             // Ex: 1/3
+            auto toAdd = new Rational(term);
+            auto vec = this->rationals[termIndex[i]];
+            vec.push_back(*toAdd);
+            this->rationals[termIndex[i]] = vec;
         }
-        std::cout << term << std::endl;
         i++;
     }
 }

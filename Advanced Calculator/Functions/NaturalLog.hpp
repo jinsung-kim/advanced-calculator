@@ -5,10 +5,11 @@
 //  Created by Jin Kim on 6/2/20.
 //  Copyright © 2020 Jin Kim. All rights reserved.
 //
-
 # ifndef NaturalLog_hpp
 # define NaturalLog_hpp
+
 # include <iostream>
+
 # include "Rational.hpp"
 # include "Polynomial.hpp"
 
