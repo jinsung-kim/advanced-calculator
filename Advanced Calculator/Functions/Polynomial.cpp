@@ -16,6 +16,8 @@
 using namespace RationalC;
 using namespace IndeterminantC;
 
+const std::string validVars = "abcdefghijklmnopqrstuvwxyz";
+
 namespace PolynomialC
 {
 
@@ -115,39 +117,35 @@ Polynomial::Polynomial(std::string expression)
             if (split != "") terms.push_back(split);
             split = expression[i];
         }
-        else
-        {
-            split += expression[i];
-        }
+        else split += expression[i];
     }
     if (split != "") terms.push_back(split);
     for (const std::string& term: terms)
     {
         Rational* coeff = nullptr;
         Rational* degree = nullptr;
-        size_t ind = term.find('^');
-        std::string degreeString = term.substr(ind + 1);
-        this->var = term[ind - 1];
-        std::string coeffString = term.substr(0, ind - 1);
-        if (coeffString.find('/') == std::string::npos) // No fraction within the coefficient
+        if (term.find('^') != std::string::npos) // Degree is 2 or more
         {
-            coeff = new Rational(std::stoi(coeffString));
+            size_t ind = term.find('^');
+            std::string degreeString = term.substr(ind + 1);
+            this->var = term[ind - 1];
+            std::string coeffString = term.substr(0, ind - 1);
+            coeff = new Rational(coeffString);
+            degree = new Rational(degreeString);
         }
-        else // Fraction is found and needs to be divided
+        else // Degree is at most 1
         {
-            std::string before = coeffString.substr(0, coeffString.find('/'));
-            std::string after = coeffString.substr(coeffString.find('/') + 1);
-            coeff = new Rational(std::stoi(before), std::stoi(after));
-        }
-        if (degreeString.find('/') == std::string::npos) // No fraction within the degree
-        {
-            degree = new Rational(std::stoi(degreeString));
-        }
-        else // Fraction is found and needs to be divided
-        {
-            std::string before = degreeString.substr(0, degreeString.find('/'));
-            std::string after = degreeString.substr(degreeString.find('/') + 1);
-            degree = new Rational(std::stoi(before), std::stoi(after));
+            if (term.find_first_of(validVars) == std::string::npos) // Constant
+            {
+                coeff = new Rational(term);
+                degree = new Rational(0);
+            }
+            else
+            {
+                size_t ind = term.find_first_of(validVars);
+                coeff = new Rational(term.substr(0, ind));
+                degree = new Rational(1);
+            }
         }
         Indeterminant* toAdd = new Indeterminant(*degree, *coeff);
         this->expressions.push_back(*toAdd); // Add to the expressions list
