@@ -36,60 +36,20 @@ std::ostream& operator << (std::ostream& os, Expression& rhs)
     std::string result = "";
     for (size_t i = 0; i < rhs.negative.size(); i++)
     {
-        for (size_t j = 0; j < rhs.rationals[i].size(); j++)
-        {
-            if (j == rhs.rationals[i].size() - 1) result = result + "(" + rhs.rationals[i][j].display() + ")";
-            else result = result + "(" + rhs.rationals[i][j].display() + ")*";
-        }
-        for (size_t j = 0; j < rhs.exponentials[i].size(); j++)
-        {
-            if (j == rhs.exponentials[i].size() - 1) result = result + "(" + rhs.exponentials[i][j].display() + ")";
-            else result = result + "(" + rhs.exponentials[i][j].display() + ")*";
-        }
-        for (size_t j = 0; j < rhs.logs[i].size(); j++)
-        {
-            if (j == rhs.logs[i].size() - 1) result = result + "(" + rhs.logs[i][j].display() + ")";
-            else result = result + "(" + rhs.logs[i][j].display() + ")*";
-        }
-        for (size_t j = 0; j < rhs.naturals[i].size(); j++)
-        {
-            if (j == rhs.naturals[i].size() - 1) result = result + "(" + rhs.naturals[i][j].display() + ")";
-            else result = result + "(" + rhs.naturals[i][j].display() + ")*";
-        }
-        for (size_t j = 0; j < rhs.polynomials[i].size(); j++)
-        {
-            if (j == rhs.polynomials[i].size() - 1) result = result + "(" + rhs.polynomials[i][j].display() + ")";
-            else result = result + "(" + rhs.polynomials[i][j].display() + ")*";
-        }
+        for (size_t j = 0; j < rhs.rationals[i].size(); j++) result = result + "(" + rhs.rationals[i][j].display() + ")";
+        for (size_t j = 0; j < rhs.exponentials[i].size(); j++) result = result + "(" + rhs.exponentials[i][j].display() + ")";
+        for (size_t j = 0; j < rhs.logs[i].size(); j++) result = result + "(" + rhs.logs[i][j].display() + ")";
+        for (size_t j = 0; j < rhs.naturals[i].size(); j++) result = result + "(" + rhs.naturals[i][j].display() + ")";
+        for (size_t j = 0; j < rhs.polynomials[i].size(); j++) result = result + "(" + rhs.polynomials[i][j].display() + ")";
         if (rhs.negative[i] == true) result += "-";
         else result += "+";
     }
     size_t last = rhs.negative.size();
-    for (size_t j = 0; j < rhs.rationals[last].size(); j++)
-    {
-        if (j == rhs.rationals[last].size() - 1) result = result + "(" + rhs.rationals[last][j].display() + ")";
-        else result = result + "(" + rhs.rationals[last][j].display() + ")*";
-    }
-    for (size_t j = 0; j < rhs.exponentials[last].size(); j++)
-    {
-        if (j == rhs.exponentials[last].size() - 1) result = result + "(" + rhs.exponentials[last][j].display() + ")";
-        else result = result + "(" + rhs.exponentials[last][j].display() + ")*";
-    }
-    for (size_t j = 0; j < rhs.logs[last].size(); j++)
-    {
-        if (j == rhs.logs[last].size() - 1) result = result + "(" + rhs.logs[last][j].display() + ")";
-        else result = result + "(" + rhs.logs[last][j].display() + ")*";
-    }
-    for (size_t j = 0; j < rhs.naturals[last].size(); j++)
-    {
-        if (j == rhs.naturals[last].size() - 1) result = result + "(" + rhs.naturals[last][j].display() + ")";
-        else result = result + "(" + rhs.naturals[last][j].display() + ")*";
-    }
-    for (size_t j = 0; j < rhs.polynomials[last].size(); j++)
-    {
-        if (j == rhs.polynomials[last].size() - 1) result = result + "(" + rhs.polynomials[last][j].display() + ")";
-        else result = result + "(" + rhs.polynomials[last][j].display() + ")*";
-    }
+    for (size_t j = 0; j < rhs.rationals[last].size(); j++) result = result + "(" + rhs.rationals[last][j].display() + ")";
+    for (size_t j = 0; j < rhs.exponentials[last].size(); j++) result = result + "(" + rhs.exponentials[last][j].display() + ")";
+    for (size_t j = 0; j < rhs.logs[last].size(); j++) result = result + "(" + rhs.logs[last][j].display() + ")";
+    for (size_t j = 0; j < rhs.naturals[last].size(); j++) result = result + "(" + rhs.naturals[last][j].display() + ")";
+    for (size_t j = 0; j < rhs.polynomials[last].size(); j++) result = result + "(" + rhs.polynomials[last][j].display() + ")";
     if (result == "") os << "0";
     else os << result;
     return os;
@@ -99,6 +59,7 @@ std::ostream& operator << (std::ostream& os, Expression& rhs)
  Example inputs:
  (2^x)*(x^3+2x) + (log(x))*(3/4)
  (ln(2x))*(e^3x) + (1/3)*(3/4x^3)
+ '*' can be excluded or included. It doesn't make a difference when it is processed
  */
 Expression::Expression(std::string input)
 {

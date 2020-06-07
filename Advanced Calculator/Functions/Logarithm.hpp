@@ -33,6 +33,8 @@ public:
     // Display
     std::string display() const;
     
+    
+    
     // Algebraic Operations
     float evaluate(float) const;
 private:

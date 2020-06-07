@@ -12,6 +12,7 @@
 
 # include "Rational.hpp"
 # include "Polynomial.hpp"
+# include "Expression.hpp"
 
 /*
  Separated into two cases:
@@ -27,6 +28,8 @@
 namespace RationalC { class Rational; }
 
 namespace PolynomialC { class Polynomial; }
+
+namespace ExpressionC { class Expression; }
 
 namespace ExponentialC
 {
@@ -52,8 +55,10 @@ public:
     std::string display() const;
     
     // Integrate
+    ExpressionC::Expression integrate() const;
     
     // Derive
+    ExpressionC::Expression derive() const;
     
     // Evaluate
     float evaluate(float x) const;

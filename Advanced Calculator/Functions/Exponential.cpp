@@ -12,6 +12,7 @@
 # include "Exponential.hpp"
 # include "Rational.hpp"
 # include "Polynomial.hpp"
+# include "Expression.hpp"
 
 // Special Cases
 # define e 2.718281828459
@@ -19,6 +20,7 @@
 
 using namespace PolynomialC;
 using namespace RationalC;
+using namespace ExpressionC;
 
 namespace ExponentialC
 {
@@ -92,20 +94,26 @@ Exponential& Exponential::operator = (const Exponential& rhs)
 // Display
 std::string Exponential::display() const
 {
-//    if (rhs.val == e) os << "e^(" << rhs.power << ")";
-//    else if (rhs.val == pi) os << "π^(" << rhs.power << ")";
-//    else os << rhs.base << "^(" << rhs.power << ")";
-//    return os;
     std::string result = "";
     if (this->val == e) result = "e^(" + this->power.display() + ")";
-    else if (this->val == pi) result = "e^(" + this->power.display() + ")";
+    else if (this->val == pi) result = "π^(" + this->power.display() + ")";
     else result = this->base.display() + "^(" + this->power.display() + ")";
     return result;
 }
 
 // Integrate
+Expression Exponential::integrate() const
+{
+    Expression result;
+    return result;
+}
 
 // Derive
+Expression Exponential::derive() const
+{
+    Expression result;
+    return result;
+}
 
 float Exponential::evaluate(float x) const
 {
