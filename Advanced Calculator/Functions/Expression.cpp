@@ -31,12 +31,67 @@ const std::string validVariables = "abcdefghijklmnopqrstuvwxyz";
 namespace ExpressionC
 {
 
-std::ostream& operator << (std::ostream& os, const Expression& rhs)
+std::ostream& operator << (std::ostream& os, Expression& rhs)
 {
+    std::string result = "";
     for (size_t i = 0; i < rhs.negative.size(); i++)
     {
-        
+        for (size_t j = 0; j < rhs.rationals[i].size(); j++)
+        {
+            if (j == rhs.rationals[i].size() - 1) result = result + "(" + rhs.rationals[i][j].display() + ")";
+            else result = result + "(" + rhs.rationals[i][j].display() + ")*";
+        }
+        for (size_t j = 0; j < rhs.exponentials[i].size(); j++)
+        {
+            if (j == rhs.exponentials[i].size() - 1) result = result + "(" + rhs.exponentials[i][j].display() + ")";
+            else result = result + "(" + rhs.exponentials[i][j].display() + ")*";
+        }
+        for (size_t j = 0; j < rhs.logs[i].size(); j++)
+        {
+            if (j == rhs.logs[i].size() - 1) result = result + "(" + rhs.logs[i][j].display() + ")";
+            else result = result + "(" + rhs.logs[i][j].display() + ")*";
+        }
+        for (size_t j = 0; j < rhs.naturals[i].size(); j++)
+        {
+            if (j == rhs.naturals[i].size() - 1) result = result + "(" + rhs.naturals[i][j].display() + ")";
+            else result = result + "(" + rhs.naturals[i][j].display() + ")*";
+        }
+        for (size_t j = 0; j < rhs.polynomials[i].size(); j++)
+        {
+            if (j == rhs.polynomials[i].size() - 1) result = result + "(" + rhs.polynomials[i][j].display() + ")";
+            else result = result + "(" + rhs.polynomials[i][j].display() + ")*";
+        }
+        if (rhs.negative[i] == true) result += "-";
+        else result += "+";
     }
+    size_t last = rhs.negative.size();
+    for (size_t j = 0; j < rhs.rationals[last].size(); j++)
+    {
+        if (j == rhs.rationals[last].size() - 1) result = result + "(" + rhs.rationals[last][j].display() + ")";
+        else result = result + "(" + rhs.rationals[last][j].display() + ")*";
+    }
+    for (size_t j = 0; j < rhs.exponentials[last].size(); j++)
+    {
+        if (j == rhs.exponentials[last].size() - 1) result = result + "(" + rhs.exponentials[last][j].display() + ")";
+        else result = result + "(" + rhs.exponentials[last][j].display() + ")*";
+    }
+    for (size_t j = 0; j < rhs.logs[last].size(); j++)
+    {
+        if (j == rhs.logs[last].size() - 1) result = result + "(" + rhs.logs[last][j].display() + ")";
+        else result = result + "(" + rhs.logs[last][j].display() + ")*";
+    }
+    for (size_t j = 0; j < rhs.naturals[last].size(); j++)
+    {
+        if (j == rhs.naturals[last].size() - 1) result = result + "(" + rhs.naturals[last][j].display() + ")";
+        else result = result + "(" + rhs.naturals[last][j].display() + ")*";
+    }
+    for (size_t j = 0; j < rhs.polynomials[last].size(); j++)
+    {
+        if (j == rhs.polynomials[last].size() - 1) result = result + "(" + rhs.polynomials[last][j].display() + ")";
+        else result = result + "(" + rhs.polynomials[last][j].display() + ")*";
+    }
+    if (result == "") os << "0";
+    else os << result;
     return os;
 }
 
@@ -107,7 +162,7 @@ Expression::Expression(std::string input)
              If a character is found before the first '^', it must be a polynomial
              If the character is found after, then it must be exponential
              */
-            if (term.find_first_of(validVariables) > term.find_first_of('^'))
+            if (term.find_first_of(validVariables) < term.find_first_of('^'))
             {
                 auto toAdd = new Polynomial(term);
                 auto vec = this->polynomials[termIndex[i]];

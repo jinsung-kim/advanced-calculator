@@ -55,6 +55,15 @@ NaturalLog& NaturalLog::operator = (const NaturalLog& rhs)
     return *this;
 }
 
+std::string NaturalLog::display() const
+{
+    std::string result = "";
+    if (this->coeff == 1) result = "ln(" + this->base.display() + ")";
+    else if (this->coeff == -1) result = "-ln(" + this->base.display() + ")";
+    else result = this->coeff.display() + "ln(" + this->base.display() + ")";
+    return result;
+}
+
 float NaturalLog::evaluate(float x) const
 {
     float result = this->coeff.evaluate() * log(this->base.evaluate(x));

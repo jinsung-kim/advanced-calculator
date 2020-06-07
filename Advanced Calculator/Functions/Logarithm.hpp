@@ -25,9 +25,14 @@ public:
     Logarithm();
     Logarithm(const std::string&);
     Logarithm(const RationalC::Rational&, const PolynomialC::Polynomial&);
+    
     // Copy Constructor
     Logarithm(const Logarithm&);
     Logarithm& operator = (const Logarithm&);
+    
+    // Display
+    std::string display() const;
+    
     // Algebraic Operations
     float evaluate(float) const;
 private:

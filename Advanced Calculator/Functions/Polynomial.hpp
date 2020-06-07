@@ -44,6 +44,9 @@ public:
     
     ~Polynomial();
     
+    // Display
+    std::string display() const;
+    
     // Sorting degrees in order
     void sortExpression();
     

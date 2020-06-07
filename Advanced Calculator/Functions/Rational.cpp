@@ -218,6 +218,12 @@ Rational::Rational(const std::string& input)
         this->den = 1;
         this->negative = true;
     }
+    else if (input == "")
+    {
+        this->num = 1;
+        this->den = 1;
+        this->negative = false;
+    }
     else if (input.find('-') != std::string::npos) // Negatives
     {
         if (input.find('/') != std::string::npos) // Fraction

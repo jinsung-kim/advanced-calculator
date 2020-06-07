@@ -203,6 +203,87 @@ Polynomial::~Polynomial()
     this->expressions.clear();
 }
 
+// Display
+std::string Polynomial::display() const
+{
+    std::string output = "";
+    for (size_t i = 0; i < this->expressions.size(); i++)
+    {
+        if (this->expressions[i].getCoeff() != 0)
+        {
+            if (this->expressions[i].getDegree() == 0) // Constant
+            {
+                if (this->expressions[i].getCoeff().getNegative())
+                {
+                    output = output + "-" + this->expressions[i].getCoeff().display();
+                }
+                else
+                {
+                    output = output + "+" + this->expressions[i].getCoeff().display();
+                }
+            }
+            else if (this->expressions[i].getDegree() == 1) // Degree is linear
+            {
+                if (this->expressions[i].getCoeff().getNegative())
+                {
+                    if (this->expressions[i].getCoeff() == 1)
+                    {
+                        output = output + "-" + this->var;
+                    }
+                    else
+                    {
+                        output = output + "-" + this->expressions[i].getCoeff().display() + this->var;
+                    }
+                }
+                else
+                {
+                    if (this->expressions[i].getCoeff() == 1)
+                    {
+                        output = output + "+" + this->var;
+                    }
+                    else
+                    {
+                        output = output + "+" + this->expressions[i].getCoeff().display() + this->var;
+                    }
+                }
+            }
+            else // Degree is quadratic or higher; indicating that it must be stated
+            {
+                if (this->expressions[i].getCoeff().getNegative())
+                {
+                    if (this->expressions[i].getCoeff() == 1)
+                    {
+                        output = output + "-" + this->var + "^" + this->expressions[i].getDegree().display();
+                    }
+                    else
+                    {
+                        output = output + "-" + this->expressions[i].getCoeff().display()
+                        + this->var + "^" + this->expressions[i].getDegree().display();
+                    }
+                }
+                else
+                {
+                    if (this->expressions[i].getCoeff() == 1)
+                    {
+                        output = output + "+" + this->var + "^" + this->expressions[i].getDegree().display();
+                    }
+                    else
+                    {
+                        output = output + "+" + this->expressions[i].getCoeff().display()
+                        + this->var + "^" + this->expressions[i].getDegree().display();
+                    }
+                }
+            }
+        }
+    }
+    // If the polynomial is empty, there is nothing else to be done except print 0
+    if (output == "") output = "0";
+    // If there is a negative, then do not splice the negative away
+    // If there is a plus, then cut out the first index
+    else if (output[0] != '-') output = output.substr(1);
+    return output;
+}
+
 // Sorting degrees in order - A simple selection sort
 // Highest degree first, lowest degree last
 void Polynomial::sortExpression()

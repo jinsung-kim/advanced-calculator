@@ -54,6 +54,15 @@ Logarithm& Logarithm::operator = (const Logarithm& rhs)
     return *this;
 }
 
+std::string Logarithm::display() const
+{
+    std::string result = "";
+    if (this->coeff == 1) result = "log(" + this->base.display() + ")";
+    else if (this->coeff == -1) result = "-log(" + this->base.display() + ")";
+    else result = this->coeff.display() + "log(" + this->base.display() + ")";
+    return result;
+}
+
 float Logarithm::evaluate(float x) const
 {
     float result = this->coeff.evaluate() * log10(this->base.evaluate(x));

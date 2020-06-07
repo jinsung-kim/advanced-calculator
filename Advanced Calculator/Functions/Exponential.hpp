@@ -48,6 +48,9 @@ public:
     // Assignment Operator
     Exponential& operator = (const Exponential&);
     
+    // Display function
+    std::string display() const;
+    
     // Integrate
     
     // Derive

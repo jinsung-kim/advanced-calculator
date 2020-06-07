@@ -5,7 +5,6 @@
 //  Created by Jin Kim on 5/25/20.
 //  Copyright © 2020 Jin Kim. All rights reserved.
 //
-
 # ifndef Rational_hpp
 # define Rational_hpp
 

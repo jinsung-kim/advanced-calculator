@@ -72,6 +72,20 @@ Exponential& Exponential::operator = (const Exponential& rhs)
     return *this;
 }
 
+// Display
+std::string Exponential::display() const
+{
+//    if (rhs.val == e) os << "e^(" << rhs.power << ")";
+//    else if (rhs.val == pi) os << "π^(" << rhs.power << ")";
+//    else os << rhs.base << "^(" << rhs.power << ")";
+//    return os;
+    std::string result = "";
+    if (this->val == e) result = "e^(" + this->power.display() + ")";
+    else if (this->val == pi) result = "e^(" + this->power.display() + ")";
+    else result = this->base.display() + "^(" + this->power.display() + ")";
+    return result;
+}
+
 // Integrate
 
 // Derive

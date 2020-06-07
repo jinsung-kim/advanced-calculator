@@ -26,9 +26,14 @@ public:
     NaturalLog();
     NaturalLog(const RationalC::Rational&, const PolynomialC::Polynomial&);
     NaturalLog(const std::string&);
+    
     // Copy Constructor
     NaturalLog(const NaturalLog&);
     NaturalLog& operator = (const NaturalLog&);
+    
+    // Display
+    std::string display() const;
+    
     // Algebraic Operations
     float evaluate(float) const;
     

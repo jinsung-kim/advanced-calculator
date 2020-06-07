@@ -32,7 +32,7 @@ namespace ExpressionC
 
 class Expression
 {
-    friend std::ostream& operator << (std::ostream&, const Expression&);
+    friend std::ostream& operator << (std::ostream&, Expression&);
 public:
     Expression(std::string);
     
