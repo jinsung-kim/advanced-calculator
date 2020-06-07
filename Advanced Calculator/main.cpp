@@ -14,6 +14,7 @@
 # include "Exponential.hpp"
 # include "Logarithm.hpp"
 # include "NaturalLog.hpp"
+# include "Expression.hpp"
 
 using namespace RationalC;
 using namespace IndeterminantC;
@@ -21,6 +22,7 @@ using namespace PolynomialC;
 using namespace ExponentialC;
 using namespace LogarithmC;
 using namespace NaturalLogC;
+using namespace ExpressionC;
 
 void rationalPolynomialTest()
 {
@@ -43,6 +45,7 @@ void rationalPolynomialTest()
 //    for (size_t i = 0; i < 5; i++) std::cout << test5.evaluate(i) << std::endl;
     auto test6 = Polynomial("-1/3x^2-1/2 x^ 3");
     std::cout << test6 << std::endl;
+//    std::cout << test6.evaluate(1) << std::endl;
 }
 
 void exponentialTest()
@@ -72,15 +75,26 @@ void logarithmTest()
     auto test6 = Rational(1,4);
     auto test7 = Logarithm(test6, test5);
     auto test8 = NaturalLog(test6, test5);
-    std::cout << test7 << std::endl;
-    std::cout << test8 << std::endl;
+    auto test9 = NaturalLog("ln(3x)");
+//    auto test10 = Logarithm("log(3x)");
+//    std::cout << test7 << std::endl;
+//    std::cout << test8 << std::endl;
+    std::cout << test9 << std::endl;
+//    std::cout << test10 << std::endl;
+}
+
+void expressionTest()
+{
+    auto test = Expression("(2^x)*(x^3+2x) + (log(x))*(3/4)");
+//    auto test2 = Expression("(ln(2x))*(e^3x) + (1/3)*(3/4x^3)");
 }
 
 void runTestCases()
 {
-    rationalPolynomialTest();
+//    rationalPolynomialTest();
 //    exponentialTest();
-//    logarithmTest();
+    logarithmTest();
+//    expressionTest();
 }
 
 int main()
