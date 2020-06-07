@@ -32,7 +32,8 @@ Logarithm::Logarithm(): coeff(0), base(Polynomial({1}, {1})) {}
 Logarithm::Logarithm(const std::string& input)
 {
     std::string coeff = input.substr(0, input.find("log"));
-    std::string inner = input.substr(input.find("log") + 1);
+    std::string inner = input.substr(input.find("log") + 4);
+    inner.erase(std::remove(inner.begin(), inner.end(), ')'), inner.end());
     if (coeff == "") this->coeff = 1;
     else this->coeff = Rational(coeff);
     if (inner == "") throw std::invalid_argument("Log cannot be empty");

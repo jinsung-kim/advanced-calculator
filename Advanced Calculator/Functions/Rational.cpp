@@ -214,19 +214,68 @@ Rational::Rational(const std::string& input)
 {
     if (input == "-")
     {
-        this->num = -1; this->den = 1;
+        this->num = 1;
+        this->den = 1;
+        this->negative = true;
     }
-    else if (input.find('/') != std::string::npos) // Fraction
+    else if (input.find('-') != std::string::npos) // Negatives
+    {
+        if (input.find('/') != std::string::npos) // Fraction
+        {
+            int num = std::stoi(input.substr(0, input.find('/')));
+            int den = std::stoi(input.substr(input.find('/') + 1));
+            if (num < 0 || den < 0)
+            {
+                num *= -1;
+                den *= -1;
+                this->negative = false;
+            }
+            else if (num < 0)
+            {
+                num *= -1;
+                this->negative = true;
+            }
+            else if (den < 0)
+            {
+                den *= -1;
+                this->negative = true;
+            }
+            else
+            {
+                this->negative = false;
+            }
+            this->num = num;
+            this->den = den;
+        }
+        else // Whole number
+        {
+            int num = std::stoi(input);
+            if (num < 0)
+            {
+                num *= -1;
+                this->negative = true;
+            }
+            else
+            {
+                this->negative = false;
+            }
+            this->num = num;
+            this->den = 1;
+        }
+    }
+    else if (input.find('/') != std::string::npos) // Positive Fraction
     {
         int num = std::stoi(input.substr(0, input.find('/')));
         int den = std::stoi(input.substr(input.find('/') + 1));
         this->num = num;
         this->den = den;
+        this->negative = false;
     }
     else // Whole number
     {
         this->num = std::stoi(input);
         this->den = 1;
+        this->negative = false;
     }
 }
 

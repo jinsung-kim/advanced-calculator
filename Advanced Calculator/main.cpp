@@ -75,12 +75,14 @@ void logarithmTest()
     auto test6 = Rational(1,4);
     auto test7 = Logarithm(test6, test5);
     auto test8 = NaturalLog(test6, test5);
-    auto test9 = NaturalLog("ln(3x)");
-//    auto test10 = Logarithm("log(3x)");
+    auto test9 = NaturalLog("3ln(3x)");
+    auto test10 = NaturalLog("-ln(3x)");
+    auto test11 = Logarithm("3log(3x)");
 //    std::cout << test7 << std::endl;
 //    std::cout << test8 << std::endl;
     std::cout << test9 << std::endl;
-//    std::cout << test10 << std::endl;
+    std::cout << test10 << std::endl;
+    std::cout << test11 << std::endl;
 }
 
 void expressionTest()
