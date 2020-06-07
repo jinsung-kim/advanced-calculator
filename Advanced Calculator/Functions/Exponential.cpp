@@ -36,6 +36,14 @@ std::ostream& operator << (std::ostream& os, const Exponential& rhs)
 // creates this case
 Exponential::Exponential(): val(0.0) {}
 
+Exponential::Exponential(const std::string& input)
+{
+    std::string base = input.substr(0, input.find('^'));
+    std::string after = input.substr(input.find('^') + 1);
+    this->power = Polynomial(after);
+    this->base = Rational(base);
+}
+
 Exponential::Exponential(const std::string& c, const Polynomial& pow)
 {
     // 'e' -> Euler's Number

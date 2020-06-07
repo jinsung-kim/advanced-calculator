@@ -34,6 +34,7 @@ public:
     Rational();
     Rational(int);
     Rational(int, int);
+    Rational(const std::string&);
     
     // Copy Control
     // Assignment Operator

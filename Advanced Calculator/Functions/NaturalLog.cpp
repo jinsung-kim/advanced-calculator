@@ -5,11 +5,13 @@
 //  Created by Jin Kim on 6/2/20.
 //  Copyright © 2020 Jin Kim. All rights reserved.
 //
-# include <iostream>
-# include <math.h>
 # include "NaturalLog.hpp"
 # include "Rational.hpp"
 # include "Polynomial.hpp"
+# include <exception>
+# include <math.h>
+# include <iostream>
+# include <algorithm>
 
 using namespace RationalC;
 using namespace PolynomialC;
@@ -28,6 +30,17 @@ std::ostream& operator << (std::ostream& os, const NaturalLog& rhs)
 NaturalLog::NaturalLog(): coeff(0), base(Polynomial({1}, {1})) {}
 
 NaturalLog::NaturalLog(const Rational& coeff, const Polynomial& base): base(base), coeff(coeff) {}
+
+NaturalLog::NaturalLog(const std::string& input)
+{
+    std::string coeff = input.substr(0, input.find("ln"));
+    std::string inner = input.substr(input.find("ln") + 3);
+    inner.erase(std::remove(inner.begin(), inner.end(), ')'), inner.end());
+    if (coeff == "") this->coeff = 1;
+    else this->coeff = Rational(coeff);
+    if (inner == "") throw std::invalid_argument("Natural log cannot be empty");
+    else this->base = Polynomial(inner);
+}
 
 NaturalLog::NaturalLog(const NaturalLog& rhs): base(rhs.base), coeff(rhs.coeff) {}
 

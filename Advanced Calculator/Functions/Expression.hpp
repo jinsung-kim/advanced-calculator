@@ -12,13 +12,19 @@
 # include "Indeterminant.hpp"
 # include "Polynomial.hpp"
 # include "Rational.hpp"
+# include "NaturalLog.hpp"
+# include "Logarithm.hpp"
 # include <iostream>
 # include <vector>
+# include <string>
+# include <unordered_map>
 
 namespace ExponentialC { class Exponential; }
 namespace IndeterminantC { class Indeterminant; }
 namespace PolynomialC { class Polynomial; }
 namespace RationalC { class Rational; }
+namespace LogarithmC { class Logarithm; }
+namespace NaturalLogC { class NaturalLog; }
 
 namespace ExpressionC
 {
@@ -26,9 +32,17 @@ namespace ExpressionC
 class Expression
 {
 public:
+    Expression(std::string);
     
 private:
-    
+    // For each term in the expression, it will be placed in the corresponding map
+    // The signs of the terms will be tracked in a separate vector
+    std::vector<bool> negative;
+    std::unordered_map<size_t, std::vector<PolynomialC::Polynomial>> polynomials;
+    std::unordered_map<size_t, std::vector<ExponentialC::Exponential>> exponentials;
+    std::unordered_map<size_t, std::vector<LogarithmC::Logarithm>> logs;
+    std::unordered_map<size_t, std::vector<NaturalLogC::NaturalLog>> naturals;
+    std::unordered_map<size_t, std::vector<RationalC::Rational>> rationals;
 };
 
 }

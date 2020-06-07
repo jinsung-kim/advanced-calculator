@@ -6,9 +6,9 @@
 //  Copyright © 2020 Jin Kim. All rights reserved.
 //
 
+# include <iostream>
 # include "Indeterminant.hpp"
 # include "Rational.hpp"
-# include <iostream>
 
 using namespace RationalC;
 

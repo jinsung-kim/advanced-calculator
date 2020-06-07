@@ -210,6 +210,26 @@ Rational::Rational(int num, int den)
     }
 }
 
+Rational::Rational(const std::string& input)
+{
+    if (input == "-")
+    {
+        this->num = -1; this->den = 1;
+    }
+    else if (input.find('/') != std::string::npos) // Fraction
+    {
+        int num = std::stoi(input.substr(0, input.find('/')));
+        int den = std::stoi(input.substr(input.find('/') + 1));
+        this->num = num;
+        this->den = den;
+    }
+    else // Whole number
+    {
+        this->num = std::stoi(input);
+        this->den = 1;
+    }
+}
+
 // Copy Constructor
 Rational::Rational(const Rational& rhs): num(rhs.num), den(rhs.den), negative(rhs.negative) {}
 

@@ -7,10 +7,11 @@
 //
 
 # include "Logarithm.hpp"
-# include <iostream>
-# include <math.h>
 # include "Rational.hpp"
 # include "Polynomial.hpp"
+# include <iostream>
+# include <math.h>
+# include <exception>
 
 using namespace RationalC;
 using namespace PolynomialC;
@@ -27,6 +28,16 @@ std::ostream& operator << (std::ostream& os, const Logarithm& rhs)
 }
 
 Logarithm::Logarithm(): coeff(0), base(Polynomial({1}, {1})) {}
+
+Logarithm::Logarithm(const std::string& input)
+{
+    std::string coeff = input.substr(0, input.find("log"));
+    std::string inner = input.substr(input.find("log") + 1);
+    if (coeff == "") this->coeff = 1;
+    else this->coeff = Rational(coeff);
+    if (inner == "") throw std::invalid_argument("Log cannot be empty");
+    else this->base = Polynomial(inner);
+}
 
 Logarithm::Logarithm(const Rational& coeff, const Polynomial& base): base(base), coeff(coeff) {}
 
