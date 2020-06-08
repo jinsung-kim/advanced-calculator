@@ -84,10 +84,10 @@ Exponential::Exponential(const std::string& c, const Polynomial& pow)
 }
 
 Exponential::Exponential(const Rational& base,
-                         const Polynomial& pow): base(base), power(pow), val(0.0) {}
+                         const Polynomial& pow): base(base), power(pow), val(0.0), oneOver(0) {}
 
 // Copy Constructor
-Exponential::Exponential(const Exponential& rhs): base(rhs.base), power(rhs.power), val(rhs.val) {}
+Exponential::Exponential(const Exponential& rhs): base(rhs.base), power(rhs.power), val(rhs.val), oneOver(rhs.oneOver) {}
 
 Exponential& Exponential::operator = (const Exponential& rhs)
 {
@@ -96,6 +96,7 @@ Exponential& Exponential::operator = (const Exponential& rhs)
         this->base = rhs.base;
         this->power = rhs.power;
         this->val = rhs.val;
+        this->oneOver = rhs.oneOver;
     }
     return *this;
 }

@@ -34,7 +34,6 @@ Polynomial::Polynomial(std::string expression)
 {
     expression.erase(std::remove_if(expression.begin(), expression.end(), ::isspace), expression.end());
     std::string split = "";
-    std::cout << expression << std::endl;
     std::vector<std::string> terms;
     if (expression.find("/(") != std::string::npos) // One over function
     {
