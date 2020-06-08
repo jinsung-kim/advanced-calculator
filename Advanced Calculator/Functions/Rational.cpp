@@ -372,6 +372,20 @@ std::string Rational::display() const
     }
 }
 
+std::string Rational::displayWithNegative() const
+{
+    if (this->den == 1)
+    {
+        if (this->negative) return "-" + std::to_string(this->num);
+        else return std::to_string(this->num);
+    }
+    else
+    {
+        if (this->negative) return "-" + std::to_string(this->num) + "/" + std::to_string(this->den);
+        else return std::to_string(this->num) + "/" + std::to_string(this->den);
+    }
+}
+
 // Rational to Double
 float Rational::evaluate() const
 {

@@ -22,9 +22,20 @@ namespace NaturalLogC
 
 std::ostream& operator << (std::ostream& os, const NaturalLog& rhs)
 {
-    if (rhs.coeff == 1) os << "ln(" << rhs.base << ")";
-    else if (rhs.coeff == -1) os << "-ln(" << rhs.base << ")";
-    else os << rhs.coeff << "ln(" << rhs.base << ")";
+    std::string result = "";
+    if (rhs.oneOver == 0)
+    {
+        if (rhs.coeff == 1) result = "ln(" + rhs.base.display() + ")";
+        else if (rhs.coeff == -1) result = "-ln(" + rhs.base.display() + ")";
+        else result = rhs.coeff.display() + "ln(" + rhs.base.display() + ")";
+    }
+    else
+    {
+        if (rhs.coeff == 1) result = rhs.oneOver.displayWithNegative() + "/ln(" + rhs.base.display() + ")";
+        else if (rhs.coeff == -1) result = rhs.oneOver.displayWithNegative() + "/-ln(" + rhs.base.display() + ")";
+        else result = rhs.oneOver.displayWithNegative() + "/" + rhs.coeff.displayWithNegative() + "ln(" + rhs.base.display() + ")";
+    }
+    os << result;
     return os;
 }
 
@@ -34,16 +45,33 @@ NaturalLog::NaturalLog(const Rational& coeff, const Polynomial& base): base(base
 
 NaturalLog::NaturalLog(const std::string& input)
 {
-    std::string coeff = input.substr(0, input.find("ln"));
-    std::string inner = input.substr(input.find("ln") + 3);
-    inner.erase(std::remove(inner.begin(), inner.end(), ')'), inner.end());
-    if (coeff == "") this->coeff = 1;
-    else this->coeff = Rational(coeff);
-    if (inner == "") throw std::invalid_argument("Natural log cannot be empty");
-    else this->base = Polynomial(inner);
+    if (input.find("/(") != std::string::npos)
+    {
+        std::string overOne = input.substr(0, input.find("/"));
+        std::string coeff = input.substr(input.find("/") + 2, input.find("ln") - 4);
+        std::string inner = input.substr(input.find("ln") + 3);
+        inner.erase(std::remove(inner.begin(), inner.end(), ')'), inner.end());
+        inner.erase(std::remove(inner.begin(), inner.end(), ')'), inner.end());
+        if (overOne == "") throw std::invalid_argument("Numerator is empty");
+        else this->oneOver = Rational(overOne);
+        if (coeff == "") this->coeff = 1;
+        else this->coeff = Rational(coeff);
+        if (inner == "") throw std::invalid_argument("Natural log cannot be empty");
+        else this->base = Polynomial(inner);
+    }
+    else
+    {
+        std::string coeff = input.substr(0, input.find("ln"));
+        std::string inner = input.substr(input.find("ln") + 3);
+        inner.erase(std::remove(inner.begin(), inner.end(), ')'), inner.end());
+        if (coeff == "") this->coeff = 1;
+        else this->coeff = Rational(coeff);
+        if (inner == "") throw std::invalid_argument("Natural log cannot be empty");
+        else this->base = Polynomial(inner);
+    }
 }
 
-NaturalLog::NaturalLog(const NaturalLog& rhs): base(rhs.base), coeff(rhs.coeff) {}
+NaturalLog::NaturalLog(const NaturalLog& rhs): base(rhs.base), coeff(rhs.coeff), oneOver(rhs.oneOver) {}
 
 NaturalLog& NaturalLog::operator = (const NaturalLog& rhs)
 {
@@ -51,6 +79,7 @@ NaturalLog& NaturalLog::operator = (const NaturalLog& rhs)
     {
         this->base = rhs.base;
         this->coeff = rhs.coeff;
+        this->oneOver = rhs.oneOver;
     }
     return *this;
 }
@@ -58,9 +87,18 @@ NaturalLog& NaturalLog::operator = (const NaturalLog& rhs)
 std::string NaturalLog::display() const
 {
     std::string result = "";
-    if (this->coeff == 1) result = "ln(" + this->base.display() + ")";
-    else if (this->coeff == -1) result = "-ln(" + this->base.display() + ")";
-    else result = this->coeff.display() + "ln(" + this->base.display() + ")";
+    if (this->oneOver == 0)
+    {
+        if (this->coeff == 1) result = "ln(" + this->base.display() + ")";
+        else if (this->coeff == -1) result = "-ln(" + this->base.display() + ")";
+        else result = this->coeff.display() + "ln(" + this->base.display() + ")";
+    }
+    else
+    {
+        if (this->coeff == 1) result = this->oneOver.display() + "/ln(" + this->base.display() + ")";
+        else if (this->coeff == -1) result = this->oneOver.display() + "/-ln(" + this->base.display() + ")";
+        else result = this->oneOver.display() + "/" + this->coeff.display() + "ln(" + this->base.display() + ")";
+    }
     return result;
 }
 

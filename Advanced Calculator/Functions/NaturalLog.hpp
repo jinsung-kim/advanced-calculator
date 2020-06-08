@@ -40,6 +40,7 @@ public:
 private:
     PolynomialC::Polynomial base;
     RationalC::Rational coeff;
+    RationalC::Rational oneOver;
 };
 
 }

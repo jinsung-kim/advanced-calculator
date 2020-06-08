@@ -67,22 +67,22 @@ void exponentialTest()
 void logarithmTest()
 {
     std::cout << "Logarithm Test Cases:" << std::endl;
-    auto test = Rational(2, 6);
-    auto test2 = Rational(-2, 4);
-    auto test3 = Rational(2, 1);
-    auto test4 = Rational(3, 1);
-    auto test5 = Polynomial({test, test2}, {test3, test4});
-    auto test6 = Rational(1,4);
-    auto test7 = Logarithm(test6, test5);
-    auto test8 = NaturalLog(test6, test5);
-    auto test9 = NaturalLog("3ln(3x)");
-    auto test10 = NaturalLog("-ln(3x)");
-    auto test11 = Logarithm("3log(3x)");
+//    auto test = Rational(2, 6);
+//    auto test2 = Rational(-2, 4);
+//    auto test3 = Rational(2, 1);
+//    auto test4 = Rational(3, 1);
+//    auto test5 = Polynomial({test, test2}, {test3, test4});
+//    auto test6 = Rational(1,4);
+//    auto test7 = Logarithm(test6, test5, 0);
+//    auto test8 = NaturalLog(test6, test5);
+    auto test9 = NaturalLog("-1/(3ln(3x))");
+//    auto test10 = NaturalLog("-ln(3x)");
+//    auto test11 = Logarithm("-3/(3log(3x))");
 //    std::cout << test7 << std::endl;
 //    std::cout << test8 << std::endl;
     std::cout << test9 << std::endl;
-    std::cout << test10 << std::endl;
-    std::cout << test11 << std::endl;
+//    std::cout << test10 << std::endl;
+//    std::cout << test11 << std::endl;
 }
 
 void expressionTest()
@@ -97,8 +97,8 @@ void runTestCases()
 {
 //    rationalPolynomialTest();
 //    exponentialTest();
-//    logarithmTest();
-    expressionTest();
+    logarithmTest();
+//    expressionTest();
 }
 
 int main()

@@ -24,7 +24,7 @@ class Logarithm
 public:
     Logarithm();
     Logarithm(const std::string&);
-    Logarithm(const RationalC::Rational&, const PolynomialC::Polynomial&);
+    Logarithm(const RationalC::Rational&, const PolynomialC::Polynomial&, const RationalC::Rational&);
     
     // Copy Constructor
     Logarithm(const Logarithm&);
@@ -33,13 +33,16 @@ public:
     // Display
     std::string display() const;
     
+    // Integrate
     
+    // Derive
     
     // Algebraic Operations
     float evaluate(float) const;
 private:
     PolynomialC::Polynomial base;
     RationalC::Rational coeff;
+    RationalC::Rational oneOver;
 };
 
 }

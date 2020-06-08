@@ -102,18 +102,17 @@ std::string Exponential::display() const
 }
 
 // Integrate
-Expression Exponential::integrate() const
-{
-    Expression result;
-    return result;
-}
+//Expression Exponential::integrate() const
+//{
+//    std::string curr = this->display();
+//    return ;
+//}
 
 // Derive
-Expression Exponential::derive() const
-{
-    Expression result;
-    return result;
-}
+//Expression Exponential::derive() const
+//{
+//
+//}
 
 float Exponential::evaluate(float x) const
 {

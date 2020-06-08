@@ -68,6 +68,7 @@ public:
     
     // String display
     std::string display() const;
+    std::string displayWithNegative() const;
     
     // Rational to Double Convert (For Polynomial Evaluation)
     float evaluate() const;
