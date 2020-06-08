@@ -24,8 +24,9 @@ public:
     Indeterminant();
     Indeterminant(int, int);
     Indeterminant(const RationalC::Rational&, const RationalC::Rational&);
-    Indeterminant(const Indeterminant&);
     
+    // Copy Constructor
+    Indeterminant(const Indeterminant&);
     // Assignment Operator
     Indeterminant& operator = (const Indeterminant& rhs);
     

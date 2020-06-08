@@ -22,20 +22,7 @@ namespace NaturalLogC
 
 std::ostream& operator << (std::ostream& os, const NaturalLog& rhs)
 {
-    std::string result = "";
-    if (rhs.oneOver == 0)
-    {
-        if (rhs.coeff == 1) result = "ln(" + rhs.base.display() + ")";
-        else if (rhs.coeff == -1) result = "-ln(" + rhs.base.display() + ")";
-        else result = rhs.coeff.display() + "ln(" + rhs.base.display() + ")";
-    }
-    else
-    {
-        if (rhs.coeff == 1) result = rhs.oneOver.displayWithNegative() + "/ln(" + rhs.base.display() + ")";
-        else if (rhs.coeff == -1) result = rhs.oneOver.displayWithNegative() + "/-ln(" + rhs.base.display() + ")";
-        else result = rhs.oneOver.displayWithNegative() + "/" + rhs.coeff.displayWithNegative() + "ln(" + rhs.base.display() + ")";
-    }
-    os << result;
+    os << rhs.display();
     return os;
 }
 
@@ -68,6 +55,7 @@ NaturalLog::NaturalLog(const std::string& input)
         else this->coeff = Rational(coeff);
         if (inner == "") throw std::invalid_argument("Natural log cannot be empty");
         else this->base = Polynomial(inner);
+        this->oneOver = 0;
     }
 }
 
@@ -105,6 +93,7 @@ std::string NaturalLog::display() const
 float NaturalLog::evaluate(float x) const
 {
     float result = this->coeff.evaluate() * log(this->base.evaluate(x));
+    if (this->oneOver != 0) result = this->oneOver.evaluate() / result;
     return result;
 }
 

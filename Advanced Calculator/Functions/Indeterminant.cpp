@@ -15,6 +15,7 @@ using namespace RationalC;
 namespace IndeterminantC
 {
 
+// For testing purposes, will never be called
 std::ostream& operator << (std::ostream& os, const Indeterminant& rhs)
 {
     os << "Coeff: " << rhs.coeff << ", Degree: " << rhs.degree;
@@ -29,6 +30,7 @@ degree(Rational(degree, 1)), coeff(Rational(coeff, 1)) {}
 Indeterminant::Indeterminant(const Rational& degree, const Rational& coeff):
 degree(degree), coeff(coeff) {}
 
+// Copy Constructor
 Indeterminant::Indeterminant(const Indeterminant& rhs): degree(rhs.degree), coeff(rhs.coeff) {}
 
 // Assignment Operator

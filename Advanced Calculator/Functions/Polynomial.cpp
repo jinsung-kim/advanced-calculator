@@ -23,93 +23,29 @@ namespace PolynomialC
 
 std::ostream& operator << (std::ostream& os, const Polynomial& rhs)
 {
-    std::string output = "";
-    for (size_t i = 0; i < rhs.expressions.size(); i++)
-    {
-        if (rhs.expressions[i].getCoeff() != 0)
-        {
-            if (rhs.expressions[i].getDegree() == 0) // Constant
-            {
-                if (rhs.expressions[i].getCoeff().getNegative())
-                {
-                    output = output + "-" + rhs.expressions[i].getCoeff().display();
-                }
-                else
-                {
-                    output = output + "+" + rhs.expressions[i].getCoeff().display();
-                }
-            }
-            else if (rhs.expressions[i].getDegree() == 1) // Degree is linear
-            {
-                if (rhs.expressions[i].getCoeff().getNegative())
-                {
-                    if (rhs.expressions[i].getCoeff() == 1)
-                    {
-                        output = output + "-" + rhs.var;
-                    }
-                    else
-                    {
-                        output = output + "-" + rhs.expressions[i].getCoeff().display() + rhs.var;
-                    }
-                }
-                else
-                {
-                    if (rhs.expressions[i].getCoeff() == 1)
-                    {
-                        output = output + "+" + rhs.var;
-                    }
-                    else
-                    {
-                        output = output + "+" + rhs.expressions[i].getCoeff().display() + rhs.var;
-                    }
-                }
-            }
-            else // Degree is quadratic or higher; indicating that it must be stated
-            {
-                if (rhs.expressions[i].getCoeff().getNegative())
-                {
-                    if (rhs.expressions[i].getCoeff() == 1)
-                    {
-                        output = output + "-" + rhs.var + "^" + rhs.expressions[i].getDegree().display();
-                    }
-                    else
-                    {
-                        output = output + "-" + rhs.expressions[i].getCoeff().display()
-                        + rhs.var + "^" + rhs.expressions[i].getDegree().display();
-                    }
-                }
-                else
-                {
-                    if (rhs.expressions[i].getCoeff() == 1)
-                    {
-                        output = output + "+" + rhs.var + "^" + rhs.expressions[i].getDegree().display();
-                    }
-                    else
-                    {
-                        output = output + "+" + rhs.expressions[i].getCoeff().display()
-                        + rhs.var + "^" + rhs.expressions[i].getDegree().display();
-                    }
-                }
-            }
-        }
-    }
-    // If the polynomial is empty, there is nothing else to be done except print 0
-    if (output == "") output = "0";
-    // If there is a negative, then do not splice the negative away
-    // If there is a plus, then cut out the first index
-    else if (output[0] != '-') output = output.substr(1);
-    os << output;
+    os << rhs.display();
     return os;
 }
 
 // Constructor
-Polynomial::Polynomial(): var('x') {}
+Polynomial::Polynomial(): var('x'), oneOver(0) {}
 
 Polynomial::Polynomial(std::string expression)
 {
     expression.erase(std::remove_if(expression.begin(), expression.end(), ::isspace), expression.end());
     std::string split = "";
+    std::cout << expression << std::endl;
     std::vector<std::string> terms;
+    if (expression.find("/(") != std::string::npos) // One over function
+    {
+        this->oneOver = Rational(expression.substr(0, expression.find("/(")));
+        expression = expression.substr(expression.find("/(") + 2);
+        expression.erase(std::remove(expression.begin(), expression.end(), ')'), expression.end());
+    }
+    else
+    {
+        this->oneOver = 0;
+    }
     for (size_t i = 0; i < expression.length(); i++)
     {
         if (expression[i] == '+' || expression[i] == '-') // A new term to separate
@@ -145,6 +81,7 @@ Polynomial::Polynomial(std::string expression)
                 size_t ind = term.find_first_of(validVars);
                 coeff = new Rational(term.substr(0, ind));
                 degree = new Rational(1);
+                this->var = term[term.find_first_of(validVars)];
             }
         }
         Indeterminant* toAdd = new Indeterminant(*degree, *coeff);
@@ -157,6 +94,7 @@ Polynomial::Polynomial(std::string expression)
 Polynomial::Polynomial(const Polynomial& rhs)
 {
     this->var = rhs.var;
+    this->oneOver = rhs.oneOver;
     for (size_t i = 0; i < rhs.expressions.size(); i++)
     {
         auto toAdd = new Indeterminant(rhs.expressions[i]);
@@ -180,6 +118,7 @@ Polynomial::Polynomial(const std::vector<Rational>& coeffs,
         this->expressions.push_back(*toAdd);
     }
     this->var = 'x';
+    this->oneOver = 0;
 }
 
 // Assignment Operator
@@ -194,6 +133,8 @@ Polynomial& Polynomial::operator = (const Polynomial& rhs)
                                            rhs.expressions[i].getCoeff());
             this->expressions.push_back(*toAdd);
         }
+        this->var = rhs.var;
+        this->oneOver = rhs.oneOver;
     }
     return *this;
 }
@@ -281,6 +222,7 @@ std::string Polynomial::display() const
     // If there is a negative, then do not splice the negative away
     // If there is a plus, then cut out the first index
     else if (output[0] != '-') output = output.substr(1);
+    if (this->oneOver != 0) output = this->oneOver.displayWithNegative() + "/(" + output + ")";
     return output;
 }
 
@@ -312,17 +254,35 @@ void Polynomial::sortExpression()
 Polynomial Polynomial::derive() const
 {
     Polynomial result;
-    for (size_t i = 0; i < this->expressions.size(); i++)
+    if (this->oneOver == 0)
     {
-        // Coeff Calculations
-        auto newCoeff = Rational((this->expressions[i].getCoeff()) * (this->expressions[i].getDegree()));
-        // Degree Calculations
-        auto newDegree = Rational(--(this->expressions[i].getDegree()));
-        
-        // Constructor used: Indeterminant(degree, coeff)
-        auto derived = new Indeterminant(newDegree, newCoeff);
-        result.expressions.push_back(*derived);
+        for (size_t i = 0; i < this->expressions.size(); i++)
+        {
+            // Coeff Calculations
+            auto newCoeff = Rational((this->expressions[i].getCoeff()) * (this->expressions[i].getDegree()));
+            // Degree Calculations
+            auto newDegree = Rational(--(this->expressions[i].getDegree()));
+            
+            // Constructor used: Indeterminant(degree, coeff)
+            auto derived = new Indeterminant(newDegree, newCoeff);
+            result.expressions.push_back(*derived);
+        }
     }
+    else
+    {
+        for (size_t i = 0; i < this->expressions.size(); i++)
+        {
+            // Coeff Calculations
+            auto newCoeff = Rational((this->expressions[i].getCoeff()) * (this->expressions[i].getDegree() * -1));
+            // Degree Calculations
+            auto newDegree = Rational(--(this->expressions[i].getDegree() * -1));
+            
+            // Constructor used: Indeterminant(degree, coeff)
+            auto derived = new Indeterminant(newDegree, newCoeff);
+            result.expressions.push_back(*derived);
+        }
+    }
+    result.oneOver = this->oneOver;
     return result;
 }
 
@@ -357,6 +317,7 @@ float Polynomial::evaluate(float x) const
         result += (this->expressions[i].getCoeff().evaluate() *
                    pow(x, this->expressions[i].getDegree().evaluate()));
     }
+    if (this->oneOver != 0) result = oneOver.evaluate() / result;
     return result;
 }
 

@@ -27,19 +27,27 @@ namespace ExponentialC
 
 std::ostream& operator << (std::ostream& os, const Exponential& rhs)
 {
-    if (rhs.val == e) os << "e^(" << rhs.power << ")";
-    else if (rhs.val == pi) os << "π^(" << rhs.power << ")";
-    else os << rhs.base << "^(" << rhs.power << ")";
+    os << rhs.display();
     return os;
 }
 
 // Default constructor creates 0
 // Nothing needs to be done as the default polynomial constructor
 // creates this case
-Exponential::Exponential(): val(0.0) {}
+Exponential::Exponential(): val(0.0), oneOver(0) {}
 
-Exponential::Exponential(const std::string& input)
+Exponential::Exponential(std::string input)
 {
+    if (input.find("/(") != std::string::npos) // If over one
+    {
+        this->oneOver = Rational(input.substr(0, input.find("/(")));
+        input = input.substr(input.find("/(") + 2);
+        input.erase(std::remove(input.begin(), input.end(), ')'), input.end());
+    }
+    else
+    {
+        this->oneOver = 0;
+    }
     std::string base = input.substr(0, input.find('^'));
     std::string after = input.substr(input.find('^') + 1);
     if (base == "e")
@@ -72,6 +80,7 @@ Exponential::Exponential(const std::string& c, const Polynomial& pow)
     else this->val = pi;
     this->base = 0;
     this->power = pow; // Refers to Polynomial assignment operator
+    this->oneOver = 0;
 }
 
 Exponential::Exponential(const Rational& base,
@@ -98,6 +107,7 @@ std::string Exponential::display() const
     if (this->val == e) result = "e^(" + this->power.display() + ")";
     else if (this->val == pi) result = "π^(" + this->power.display() + ")";
     else result = this->base.display() + "^(" + this->power.display() + ")";
+    if (this->oneOver != 0) result = this->oneOver.displayWithNegative() + "/(" + result + ")";
     return result;
 }
 
@@ -126,6 +136,7 @@ float Exponential::evaluate(float x) const
     {
         result = pow(this->val, this->power.evaluate(x));
     }
+    if (this->oneOver != 0) result = this->oneOver.evaluate() / result;
     return result;
 }
 

@@ -21,20 +21,7 @@ namespace LogarithmC
 
 std::ostream& operator << (std::ostream& os, const Logarithm& rhs)
 {
-    std::string result = "";
-    if (rhs.oneOver == 0)
-    {
-        if (rhs.coeff == 1) result = "log(" + rhs.base.display() + ")";
-        else if (rhs.coeff == -1) result = "-log(" + rhs.base.display() + ")";
-        else result = rhs.coeff.display() + "log(" + rhs.base.display() + ")";
-    }
-    else
-    {
-        if (rhs.coeff == 1) result = rhs.oneOver.displayWithNegative() + "/log(" + rhs.base.display() + ")";
-        else if (rhs.coeff == -1) result = rhs.oneOver.displayWithNegative() + "/-log(" + rhs.base.display() + ")";
-        else result = rhs.oneOver.displayWithNegative() + "/" + rhs.coeff.displayWithNegative() + "log(" + rhs.base.display() + ")";
-    }
-    os << result;
+    os << rhs.display();
     return os;
 }
 
@@ -65,6 +52,7 @@ Logarithm::Logarithm(const std::string& input)
         else this->coeff = Rational(coeff);
         if (inner == "") throw std::invalid_argument("Log cannot be empty");
         else this->base = Polynomial(inner);
+        this->oneOver = 0;
     }
 }
 

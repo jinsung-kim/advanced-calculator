@@ -61,6 +61,7 @@ private:
     std::vector<IndeterminantC::Indeterminant> expressions;
     // The variable used
     char var;
+    RationalC::Rational oneOver;
 };
 
 }

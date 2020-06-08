@@ -41,7 +41,7 @@ public:
     // Constructors
     // Default constructor creates 0
     Exponential();
-    Exponential(const std::string&);
+    Exponential(std::string);
     // Char as base indicates special case in which the base is 'e'
     Exponential(const std::string&, const PolynomialC::Polynomial&);
     Exponential(const RationalC::Rational&,
@@ -67,6 +67,7 @@ private:
     RationalC::Rational base;
     PolynomialC::Polynomial power;
     double val; // If there is a special case, we change the value of 'val'
+    RationalC::Rational oneOver;
 };
 
 }
