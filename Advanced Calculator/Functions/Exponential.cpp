@@ -113,17 +113,51 @@ std::string Exponential::display() const
 }
 
 // Integrate
-//Expression Exponential::integrate() const
-//{
-//    std::string curr = this->display();
-//    return ;
-//}
-
-// Derive
-//Expression Exponential::derive() const
-//{
-//
-//}
+Expression Exponential::integrate() const
+{
+    std::string curr = this->display();
+    if (this->val == e)
+    {
+        if (this->oneOver == 0)
+        {
+            if (this->power.display().size() != 1) // Not simply e^x
+            {
+                curr = "(" + this->power.derive().display() + ")" + "(e^" + this->power.display() + ")";
+            }
+            else
+            {
+                curr = "e^" + this->power.display();
+            }
+        }
+        else
+        {
+            if (this->power.display().size() != 1) // Not simply 1/e^x
+            {
+                curr = ((this->oneOver * -1) / this->base).displayWithNegative() + "/(e^" + this->power.display() + ")";
+            }
+            else
+            {
+                curr = (this->oneOver * -1).displayWithNegative() + "/(e^" + this->power.display() + ")";
+            }
+        }
+        return Expression(curr);
+    }
+    else
+    {
+        if (this->oneOver == 0) // Not denominator Ex: 2^x, π^x
+        {
+            if (this->val == pi) curr = curr + "(1/ln(π))";
+            else curr = curr + "(1/ln(" + this->base.display() + "))";
+        }
+        else // The exponential is in the denominator
+        {
+            curr = (this->oneOver * -1).displayWithNegative();
+            if (this->val == pi) curr = curr + "/((ln(π))";
+            curr = curr + "(" + this->display() + "))";
+        }
+    }
+    return Expression(curr);
+}
 
 float Exponential::evaluate(float x) const
 {

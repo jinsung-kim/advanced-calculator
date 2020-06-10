@@ -292,12 +292,25 @@ Polynomial Polynomial::derive() const
 Polynomial Polynomial::integrate() const
 {
     Polynomial result;
-    for (size_t i = 0; i < this->expressions.size(); i++)
+    if (this->oneOver == 0)
     {
-        auto newDegree = Rational(++(this->expressions[i].getDegree()));
-        auto newCoeff = Rational(this->expressions[i].getCoeff() / newDegree);
-        auto integrated = new Indeterminant(newDegree, newCoeff);
-        result.expressions.push_back(*integrated);
+        for (size_t i = 0; i < this->expressions.size(); i++)
+        {
+            auto newDegree = Rational(++(this->expressions[i].getDegree()));
+            auto newCoeff = Rational(this->expressions[i].getCoeff() / newDegree);
+            auto integrated = new Indeterminant(newDegree, newCoeff);
+            result.expressions.push_back(*integrated);
+        }
+    }
+    else
+    {
+        for (size_t i = 0; i < this->expressions.size(); i++)
+        {
+            auto newDegree = Rational(++(this->expressions[i].getDegree() * -1));
+            auto newCoeff = Rational(this->expressions[i].getCoeff() / newDegree);
+            auto integrated = new Indeterminant(newDegree, newCoeff);
+            result.expressions.push_back(*integrated);
+        }
     }
     return result;
 }
