@@ -57,34 +57,34 @@ Polynomial::Polynomial(std::string expression)
     if (split != "") terms.push_back(split);
     for (const std::string& term: terms)
     {
-        Rational* coeff = nullptr;
-        Rational* degree = nullptr;
+        Rational coeff;
+        Rational degree;
         if (term.find('^') != std::string::npos) // Degree is 2 or more
         {
             size_t ind = term.find('^');
             std::string degreeString = term.substr(ind + 1);
             this->var = term[ind - 1];
             std::string coeffString = term.substr(0, ind - 1);
-            coeff = new Rational(coeffString);
-            degree = new Rational(degreeString);
+            coeff = Rational(coeffString);
+            degree = Rational(degreeString);
         }
         else // Degree is at most 1
         {
             if (term.find_first_of(validVars) == std::string::npos) // Constant
             {
-                coeff = new Rational(term);
-                degree = new Rational(0);
+                coeff = Rational(term);
+                degree = Rational(0);
             }
             else
             {
                 size_t ind = term.find_first_of(validVars);
-                coeff = new Rational(term.substr(0, ind));
-                degree = new Rational(1);
+                coeff = Rational(term.substr(0, ind));
+                degree = Rational(1);
                 this->var = term[term.find_first_of(validVars)];
             }
         }
-        Indeterminant* toAdd = new Indeterminant(*degree, *coeff);
-        this->expressions.push_back(*toAdd); // Add to the expressions list
+        Indeterminant toAdd = Indeterminant(degree, coeff);
+        this->expressions.push_back(toAdd); // Add to the expressions list
     }
     terms.clear();
 }
@@ -96,8 +96,8 @@ Polynomial::Polynomial(const Polynomial& rhs)
     this->oneOver = rhs.oneOver;
     for (size_t i = 0; i < rhs.expressions.size(); i++)
     {
-        auto toAdd = new Indeterminant(rhs.expressions[i]);
-        this->expressions.push_back(*toAdd);
+        auto toAdd = Indeterminant(rhs.expressions[i]);
+        this->expressions.push_back(toAdd);
     }
 }
 
@@ -113,8 +113,8 @@ Polynomial::Polynomial(const std::vector<Rational>& coeffs,
     for (size_t i = 0; i < coeffs.size(); i++)
     {
         // Constructor being called: Indeterminant(degree, coeff);
-        auto toAdd = new Indeterminant(degrees[i], coeffs[i]);
-        this->expressions.push_back(*toAdd);
+        auto toAdd = Indeterminant(degrees[i], coeffs[i]);
+        this->expressions.push_back(toAdd);
     }
     this->var = 'x';
     this->oneOver = 0;
@@ -128,9 +128,9 @@ Polynomial& Polynomial::operator = (const Polynomial& rhs)
         this->expressions.clear();
         for (size_t i = 0; i < rhs.expressions.size(); i++)
         {
-            auto toAdd = new Indeterminant(rhs.expressions[i].getDegree(),
+            auto toAdd = Indeterminant(rhs.expressions[i].getDegree(),
                                            rhs.expressions[i].getCoeff());
-            this->expressions.push_back(*toAdd);
+            this->expressions.push_back(toAdd);
         }
         this->var = rhs.var;
         this->oneOver = rhs.oneOver;
@@ -263,8 +263,8 @@ Polynomial Polynomial::derive() const
             auto newDegree = Rational(--(this->expressions[i].getDegree()));
             
             // Constructor used: Indeterminant(degree, coeff)
-            auto derived = new Indeterminant(newDegree, newCoeff);
-            result.expressions.push_back(*derived);
+            auto derived = Indeterminant(newDegree, newCoeff);
+            result.expressions.push_back(derived);
         }
     }
     else
@@ -277,8 +277,8 @@ Polynomial Polynomial::derive() const
             auto newDegree = Rational(--(this->expressions[i].getDegree() * -1));
             
             // Constructor used: Indeterminant(degree, coeff)
-            auto derived = new Indeterminant(newDegree, newCoeff);
-            result.expressions.push_back(*derived);
+            auto derived = Indeterminant(newDegree, newCoeff);
+            result.expressions.push_back(derived);
         }
     }
     result.oneOver = this->oneOver;
@@ -298,8 +298,8 @@ Polynomial Polynomial::integrate() const
         {
             auto newDegree = Rational(++(this->expressions[i].getDegree()));
             auto newCoeff = Rational(this->expressions[i].getCoeff() / newDegree);
-            auto integrated = new Indeterminant(newDegree, newCoeff);
-            result.expressions.push_back(*integrated);
+            auto integrated = Indeterminant(newDegree, newCoeff);
+            result.expressions.push_back(integrated);
         }
     }
     else
@@ -308,8 +308,8 @@ Polynomial Polynomial::integrate() const
         {
             auto newDegree = Rational(++(this->expressions[i].getDegree() * -1));
             auto newCoeff = Rational(this->expressions[i].getCoeff() / newDegree);
-            auto integrated = new Indeterminant(newDegree, newCoeff);
-            result.expressions.push_back(*integrated);
+            auto integrated = Indeterminant(newDegree, newCoeff);
+            result.expressions.push_back(integrated);
         }
     }
     return result;

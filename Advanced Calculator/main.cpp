@@ -95,8 +95,8 @@ void expressionTest()
 
 void runTestCases()
 {
-//    rationalPolynomialTest();
-    exponentialTest();
+    rationalPolynomialTest();
+//    exponentialTest();
 //    logarithmTest();
 //    expressionTest();
 }

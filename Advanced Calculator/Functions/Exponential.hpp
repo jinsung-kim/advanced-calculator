@@ -57,9 +57,6 @@ public:
     // Integrate
     ExpressionC::Expression integrate() const;
     
-    // Derive
-    ExpressionC::Expression derive() const;
-    
     // Evaluate
     float evaluate(float x) const;
     
